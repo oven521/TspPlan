@@ -1,0 +1,12 @@
+F:\00_CADStarter\trunk\01_netDxf\bin\Debug\netDxf.xml
+F:\00_CADStarter\trunk\01_netDxf\bin\Debug\netDxf.dll
+F:\00_CADStarter\trunk\01_netDxf\bin\Debug\netDxf.pdb
+F:\00_CADStarter\trunk\01_netDxf\obj\Debug\netDxf.dll
+F:\00_CADStarter\trunk\01_netDxf\obj\Debug\netDxf.pdb
+D:\learning\code\taobao_code_backup-master\taobao_code_backup-master\CADStarter\01_netDxf\bin\Debug\netDxf.xml
+D:\learning\code\taobao_code_backup-master\taobao_code_backup-master\CADStarter\01_netDxf\bin\Debug\netDxf.dll
+D:\learning\code\taobao_code_backup-master\taobao_code_backup-master\CADStarter\01_netDxf\bin\Debug\netDxf.pdb
+D:\learning\code\taobao_code_backup-master\taobao_code_backup-master\CADStarter\01_netDxf\obj\Debug\01_netDxf.csproj.AssemblyReference.cache
+D:\learning\code\taobao_code_backup-master\taobao_code_backup-master\CADStarter\01_netDxf\obj\Debug\01_netDxf.csproj.CoreCompileInputs.cache
+D:\learning\code\taobao_code_backup-master\taobao_code_backup-master\CADStarter\01_netDxf\obj\Debug\netDxf.dll
+D:\learning\code\taobao_code_backup-master\taobao_code_backup-master\CADStarter\01_netDxf\obj\Debug\netDxf.pdb

@@ -1,0 +1,16 @@
+F:\00_CADStarter\trunk\TestDxfDocument\bin\Debug\sample binary.dxf
+F:\00_CADStarter\trunk\TestDxfDocument\bin\Debug\sample.dxf
+F:\00_CADStarter\trunk\TestDxfDocument\bin\Debug\image.jpg
+F:\00_CADStarter\trunk\TestDxfDocument\bin\Debug\TestDxfDocument.exe.config
+F:\00_CADStarter\trunk\TestDxfDocument\bin\Debug\TestDxfDocument.exe
+F:\00_CADStarter\trunk\TestDxfDocument\bin\Debug\TestDxfDocument.pdb
+F:\00_CADStarter\trunk\TestDxfDocument\bin\Debug\ContourProgramming.dll
+F:\00_CADStarter\trunk\TestDxfDocument\bin\Debug\netDxf.dll
+F:\00_CADStarter\trunk\TestDxfDocument\bin\Debug\Canvas.dll
+F:\00_CADStarter\trunk\TestDxfDocument\bin\Debug\netDxf.pdb
+F:\00_CADStarter\trunk\TestDxfDocument\bin\Debug\netDxf.xml
+F:\00_CADStarter\trunk\TestDxfDocument\bin\Debug\ContourProgramming.pdb
+F:\00_CADStarter\trunk\TestDxfDocument\bin\Debug\Canvas.pdb
+F:\00_CADStarter\trunk\TestDxfDocument\obj\Debug\TestDxfDocument.csprojResolveAssemblyReference.cache
+F:\00_CADStarter\trunk\TestDxfDocument\obj\Debug\TestDxfDocument.exe
+F:\00_CADStarter\trunk\TestDxfDocument\obj\Debug\TestDxfDocument.pdb

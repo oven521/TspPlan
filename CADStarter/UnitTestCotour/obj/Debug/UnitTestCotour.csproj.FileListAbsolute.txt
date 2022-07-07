@@ -1,0 +1,14 @@
+F:\00_CADStarter\trunk\UnitTestCotour\bin\Debug\UnitTestCotour.dll
+F:\00_CADStarter\trunk\UnitTestCotour\bin\Debug\UnitTestCotour.pdb
+F:\00_CADStarter\trunk\UnitTestCotour\bin\Debug\05_SplineFunction.dll
+F:\00_CADStarter\trunk\UnitTestCotour\bin\Debug\Canvas.dll
+F:\00_CADStarter\trunk\UnitTestCotour\bin\Debug\ContourProgramming.dll
+F:\00_CADStarter\trunk\UnitTestCotour\bin\Debug\netDxf.dll
+F:\00_CADStarter\trunk\UnitTestCotour\bin\Debug\Canvas.pdb
+F:\00_CADStarter\trunk\UnitTestCotour\bin\Debug\netDxf.pdb
+F:\00_CADStarter\trunk\UnitTestCotour\bin\Debug\netDxf.xml
+F:\00_CADStarter\trunk\UnitTestCotour\bin\Debug\ContourProgramming.pdb
+F:\00_CADStarter\trunk\UnitTestCotour\bin\Debug\05_SplineFunction.pdb
+F:\00_CADStarter\trunk\UnitTestCotour\obj\Debug\UnitTestCotour.csprojResolveAssemblyReference.cache
+F:\00_CADStarter\trunk\UnitTestCotour\obj\Debug\UnitTestCotour.dll
+F:\00_CADStarter\trunk\UnitTestCotour\obj\Debug\UnitTestCotour.pdb
