@@ -1,7 +1,7 @@
 ﻿
 namespace tsp
 {
-    partial class Form1
+    partial class TspForm
     {
         /// <summary>
         /// 必需的设计器变量。
@@ -29,33 +29,34 @@ namespace tsp
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
+            this.File = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // button1
+            // File
             // 
-            this.button1.Location = new System.Drawing.Point(638, 348);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(119, 67);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
+            this.File.Location = new System.Drawing.Point(645, 351);
+            this.File.Name = "File";
+            this.File.Size = new System.Drawing.Size(119, 67);
+            this.File.TabIndex = 0;
+            this.File.Text = "输入文件";
+            this.File.UseVisualStyleBackColor = true;
+            this.File.Click += new System.EventHandler(this.File_Click);
             // 
-            // Form1
+            // TspForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.button1);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Controls.Add(this.File);
+            this.Name = "TspForm";
+            this.Text = "TspForm";
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button File;
     }
 }
 
