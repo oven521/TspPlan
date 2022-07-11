@@ -75,12 +75,13 @@ namespace tsp
             bool Xflag = true;
             //test
             //Console.WriteLine(sourcetext);
+
             //遍历sourcetext
             try
             {
                 foreach (char num in sourcetext)
                 {
-                    //判断读入数据为横坐标或纵坐标,(目前不能读取换行符)
+                    //判断读入数据为横坐标或纵坐标
                     if ((num == '\r' || num == '\n' || num == ' ')&& tempstring != "")
                     {
                         if (Xflag)
@@ -94,7 +95,6 @@ namespace tsp
                         }
                         tempstring = "";
                     }
-                    //临时 作为判定  后续可以改状态机
                     else if(num=='X')
                     {
                         Xflag = true;

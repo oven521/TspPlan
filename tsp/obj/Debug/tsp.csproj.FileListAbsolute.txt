@@ -8,3 +8,13 @@ D:\learning\code\tsp\obj\Debug\tsp.csproj.GenerateResource.cache
 D:\learning\code\tsp\obj\Debug\tsp.csproj.CoreCompileInputs.cache
 D:\learning\code\tsp\obj\Debug\tsp.exe
 D:\learning\code\tsp\obj\Debug\tsp.pdb
+D:\Repository\tsp\bin\Debug\tsp.exe.config
+D:\Repository\tsp\bin\Debug\tsp.exe
+D:\Repository\tsp\bin\Debug\tsp.pdb
+D:\Repository\tsp\obj\Debug\tsp.csproj.AssemblyReference.cache
+D:\Repository\tsp\obj\Debug\tsp.TspForm.resources
+D:\Repository\tsp\obj\Debug\tsp.Properties.Resources.resources
+D:\Repository\tsp\obj\Debug\tsp.csproj.GenerateResource.cache
+D:\Repository\tsp\obj\Debug\tsp.csproj.CoreCompileInputs.cache
+D:\Repository\tsp\obj\Debug\tsp.exe
+D:\Repository\tsp\obj\Debug\tsp.pdb

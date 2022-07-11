@@ -65,7 +65,7 @@ namespace tsp
         private void Reverse(int begin, int end)
         {
             double temp;
-            for (int i = begin; i < (begin + end) / 2; i++)
+            for (int i = begin; i < (begin + end) / 2+1; i++)
             {
                 //交换x，y坐标
                 temp = SourceX[i];
@@ -82,7 +82,8 @@ namespace tsp
         {
             int StopFlag;//停止标志
             int testcircle = 0;//循环次数
-            for(int k=0;k< SpotNum/2; k++)
+            CalculateSumDistance();
+            for (int k=0;k< SpotNum; k++)
             {
                 StopFlag = 0;
                 //遍历一轮
@@ -92,30 +93,26 @@ namespace tsp
                     {
                          testcircle++;
                         //比较颠倒顺序前后的总路线长
-                        //if (Distance(SourceX[i], SourceY[i], SourceX[j], SourceY[j]) + Distance(SourceX[i + 1], SourceY[i + 1], SourceX[j + 1], SourceY[j + 1]) <
-                        //Distance(SourceX[i], SourceY[i], SourceX[i + 1], SourceY[i + 1]) + Distance(SourceX[j], SourceY[j], SourceX[j + 1], SourceY[j + 1]))
-                        double temp = Distance(SourceX[i], SourceY[i], SourceX[j], SourceY[j]) + Distance(SourceX[i + 1], SourceY[i + 1], SourceX[j + 1], SourceY[j + 1]);
-                        double temp2 = Distance(SourceX[i], SourceY[i], SourceX[i + 1], SourceY[i + 1]) + Distance(SourceX[j], SourceY[j], SourceX[j + 1], SourceY[j + 1]);
-                        if (temp < temp2)
+                        double Newpath = Distance(SourceX[i], SourceY[i], SourceX[j], SourceY[j]) + Distance(SourceX[i + 1], SourceY[i + 1], SourceX[j + 1], SourceY[j + 1]);
+                        double Oldpath = Distance(SourceX[i], SourceY[i], SourceX[i + 1], SourceY[i + 1]) + Distance(SourceX[j], SourceY[j], SourceX[j + 1], SourceY[j + 1]);
+                        if (Newpath < Oldpath)
                         {
                             StopFlag++;
+                            sumDistance += Newpath - Oldpath;
                             Reverse(i + 1, j);//将i+1和j之间的顺序颠倒
                         }
-                        CalculateSumDistance();
-                        Console.WriteLine(sumDistance);
+                        //Console.WriteLine(sumDistance);
                     }
-                        //Console.WriteLine("------------------------------");
+                    //Console.WriteLine("------------------------------");
                 }
                 if (StopFlag == 0)
                 {
                     break;
                 }
-                //CalculateSumDistance();
-                //Console.WriteLine(sumDistance);
                 
             }
             Console.WriteLine(testcircle);
-            CalculateSumDistance();
+            //CalculateSumDistance();
         }
 
         private void greed()
