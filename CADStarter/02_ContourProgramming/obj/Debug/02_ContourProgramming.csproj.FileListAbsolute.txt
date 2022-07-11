@@ -21,3 +21,16 @@ D:\learning\code\taobao_code_backup-master\taobao_code_backup-master\CADStarter\
 D:\learning\code\taobao_code_backup-master\taobao_code_backup-master\CADStarter\02_ContourProgramming\obj\Debug\02_ContourProgramming.csproj.CopyComplete
 D:\learning\code\taobao_code_backup-master\taobao_code_backup-master\CADStarter\02_ContourProgramming\obj\Debug\ContourProgramming.dll
 D:\learning\code\taobao_code_backup-master\taobao_code_backup-master\CADStarter\02_ContourProgramming\obj\Debug\ContourProgramming.pdb
+D:\Repository\CADStarter\02_ContourProgramming\bin\Debug\ContourProgramming.dll
+D:\Repository\CADStarter\02_ContourProgramming\bin\Debug\ContourProgramming.pdb
+D:\Repository\CADStarter\02_ContourProgramming\bin\Debug\Canvas.dll
+D:\Repository\CADStarter\02_ContourProgramming\bin\Debug\netDxf.dll
+D:\Repository\CADStarter\02_ContourProgramming\bin\Debug\Canvas.pdb
+D:\Repository\CADStarter\02_ContourProgramming\bin\Debug\Canvas.dll.config
+D:\Repository\CADStarter\02_ContourProgramming\bin\Debug\netDxf.pdb
+D:\Repository\CADStarter\02_ContourProgramming\bin\Debug\netDxf.xml
+D:\Repository\CADStarter\02_ContourProgramming\obj\Debug\02_ContourProgramming.csproj.AssemblyReference.cache
+D:\Repository\CADStarter\02_ContourProgramming\obj\Debug\02_ContourProgramming.csproj.CoreCompileInputs.cache
+D:\Repository\CADStarter\02_ContourProgramming\obj\Debug\02_ContourProgramming.csproj.CopyComplete
+D:\Repository\CADStarter\02_ContourProgramming\obj\Debug\ContourProgramming.dll
+D:\Repository\CADStarter\02_ContourProgramming\obj\Debug\ContourProgramming.pdb

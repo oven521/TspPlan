@@ -1,0 +1,10 @@
+D:\learning\code\tsp\bin\Debug\tsp.exe.config
+D:\learning\code\tsp\bin\Debug\tsp.exe
+D:\learning\code\tsp\bin\Debug\tsp.pdb
+D:\learning\code\tsp\obj\Debug\tsp.csproj.AssemblyReference.cache
+D:\learning\code\tsp\obj\Debug\tsp.TspForm.resources
+D:\learning\code\tsp\obj\Debug\tsp.Properties.Resources.resources
+D:\learning\code\tsp\obj\Debug\tsp.csproj.GenerateResource.cache
+D:\learning\code\tsp\obj\Debug\tsp.csproj.CoreCompileInputs.cache
+D:\learning\code\tsp\obj\Debug\tsp.exe
+D:\learning\code\tsp\obj\Debug\tsp.pdb

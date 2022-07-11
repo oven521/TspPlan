@@ -14,3 +14,22 @@ F:\00_CADStarter\trunk\TestDxfDocument\bin\Debug\Canvas.pdb
 F:\00_CADStarter\trunk\TestDxfDocument\obj\Debug\TestDxfDocument.csprojResolveAssemblyReference.cache
 F:\00_CADStarter\trunk\TestDxfDocument\obj\Debug\TestDxfDocument.exe
 F:\00_CADStarter\trunk\TestDxfDocument\obj\Debug\TestDxfDocument.pdb
+D:\Repository\CADStarter\TestDxfDocument\bin\Debug\sample binary.dxf
+D:\Repository\CADStarter\TestDxfDocument\bin\Debug\sample.dxf
+D:\Repository\CADStarter\TestDxfDocument\bin\Debug\image.jpg
+D:\Repository\CADStarter\TestDxfDocument\bin\Debug\TestDxfDocument.exe.config
+D:\Repository\CADStarter\TestDxfDocument\bin\Debug\TestDxfDocument.exe
+D:\Repository\CADStarter\TestDxfDocument\bin\Debug\TestDxfDocument.pdb
+D:\Repository\CADStarter\TestDxfDocument\bin\Debug\ContourProgramming.dll
+D:\Repository\CADStarter\TestDxfDocument\bin\Debug\netDxf.dll
+D:\Repository\CADStarter\TestDxfDocument\bin\Debug\Canvas.dll
+D:\Repository\CADStarter\TestDxfDocument\bin\Debug\netDxf.pdb
+D:\Repository\CADStarter\TestDxfDocument\bin\Debug\netDxf.xml
+D:\Repository\CADStarter\TestDxfDocument\bin\Debug\ContourProgramming.pdb
+D:\Repository\CADStarter\TestDxfDocument\bin\Debug\Canvas.pdb
+D:\Repository\CADStarter\TestDxfDocument\bin\Debug\Canvas.dll.config
+D:\Repository\CADStarter\TestDxfDocument\obj\Debug\TestDxfDocument.csproj.AssemblyReference.cache
+D:\Repository\CADStarter\TestDxfDocument\obj\Debug\TestDxfDocument.csproj.CoreCompileInputs.cache
+D:\Repository\CADStarter\TestDxfDocument\obj\Debug\TestDxfDocument.csproj.CopyComplete
+D:\Repository\CADStarter\TestDxfDocument\obj\Debug\TestDxfDocument.exe
+D:\Repository\CADStarter\TestDxfDocument\obj\Debug\TestDxfDocument.pdb

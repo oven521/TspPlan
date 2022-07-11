@@ -10,7 +10,6 @@ using MainHMI;
 namespace CADEngine.DrawingState {
     public class CDrawingStateLine : CDrawingStateBase, IDrawingStateBase {
 
-
         public CDrawingStateLine(CanvasCtrl frm)
             : base(frm) {
 

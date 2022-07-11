@@ -143,6 +143,7 @@ namespace MainHMI
             this.richTextBoxOperationHistory = new System.Windows.Forms.RichTextBox();
             this.rtxtDrawCmd = new System.Windows.Forms.RichTextBox();
             this.splitContainerWhole = new System.Windows.Forms.SplitContainer();
+            this.canvasMain = new MainHMI.CanvasCtrl();
             this.buttonItem19 = new DevComponents.DotNetBar.ButtonItem();
             this.buttonItem18 = new DevComponents.DotNetBar.ButtonItem();
             this.itemContainer6 = new DevComponents.DotNetBar.ItemContainer();
@@ -167,7 +168,6 @@ namespace MainHMI
             this.buttonFontUnderline = new DevComponents.DotNetBar.ButtonItem();
             this.buttonItem1 = new DevComponents.DotNetBar.ButtonItem();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.canvasMain = new MainHMI.CanvasCtrl();
             this.ribbonControl1.SuspendLayout();
             this.ribbonPanel1.SuspendLayout();
             this.ribbonPanel3.SuspendLayout();
@@ -306,6 +306,7 @@ namespace MainHMI
             // 
             this.ribbonPanel1.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.ribbonPanel1.TabIndex = 1;
+            this.ribbonPanel1.Visible = true;
             // 
             // ribbonBar1
             // 
@@ -1438,6 +1439,26 @@ namespace MainHMI
             this.splitContainerWhole.SplitterWidth = 5;
             this.splitContainerWhole.TabIndex = 3;
             // 
+            // canvasMain
+            // 
+            this.canvasMain.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.canvasMain.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.canvasMain.CurrentPoint = ((System.Drawing.PointF)(resources.GetObject("canvasMain.CurrentPoint")));
+            this.canvasMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.canvasMain.DrawModel = null;
+            this.canvasMain.DrawPen = null;
+            this.canvasMain.LastPoint = ((System.Drawing.PointF)(resources.GetObject("canvasMain.LastPoint")));
+            this.canvasMain.Location = new System.Drawing.Point(0, 0);
+            this.canvasMain.Margin = new System.Windows.Forms.Padding(4, 2, 4, 2);
+            this.canvasMain.Name = "canvasMain";
+            this.canvasMain.RunningSnaps = null;
+            this.canvasMain.RunningSnapsEnabled = true;
+            this.canvasMain.Size = new System.Drawing.Size(1404, 557);
+            this.canvasMain.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighSpeed;
+            this.canvasMain.TabIndex = 1;
+            this.canvasMain.KeyDown += new System.Windows.Forms.KeyEventHandler(this.canvasMain_KeyDown);
+            this.canvasMain.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.canvasMain_KeyPress);
+            // 
             // buttonItem19
             // 
             this.buttonItem19.Image = ((System.Drawing.Image)(resources.GetObject("buttonItem19.Image")));
@@ -1669,26 +1690,6 @@ namespace MainHMI
             this.buttonItem1.FontBold = true;
             this.buttonItem1.Name = "buttonItem1";
             this.buttonItem1.Text = "бЁжа";
-            // 
-            // canvasMain
-            // 
-            this.canvasMain.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.canvasMain.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.canvasMain.CurrentPoint = ((System.Drawing.PointF)(resources.GetObject("canvasMain.CurrentPoint")));
-            this.canvasMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.canvasMain.DrawModel = null;
-            this.canvasMain.DrawPen = null;
-            this.canvasMain.LastPoint = ((System.Drawing.PointF)(resources.GetObject("canvasMain.LastPoint")));
-            this.canvasMain.Location = new System.Drawing.Point(0, 0);
-            this.canvasMain.Margin = new System.Windows.Forms.Padding(4, 2, 4, 2);
-            this.canvasMain.Name = "canvasMain";
-            this.canvasMain.RunningSnaps = null;
-            this.canvasMain.RunningSnapsEnabled = true;
-            this.canvasMain.Size = new System.Drawing.Size(1404, 557);
-            this.canvasMain.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighSpeed;
-            this.canvasMain.TabIndex = 1;
-            this.canvasMain.KeyDown += new System.Windows.Forms.KeyEventHandler(this.canvasMain_KeyDown);
-            this.canvasMain.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.canvasMain_KeyPress);
             // 
             // MainWin
             // 
