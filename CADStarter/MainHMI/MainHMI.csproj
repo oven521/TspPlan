@@ -109,6 +109,10 @@
       <Project>{22ccf1bb-170f-4f87-86e3-5e7b54a25a6c}</Project>
       <Name>05_SplineFunction</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TXTFileMananger\TXTMananger.csproj">
+      <Project>{499e830c-d6d3-465c-8ddb-3c42123eb183}</Project>
+      <Name>TXTMananger</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\机器.ico" />

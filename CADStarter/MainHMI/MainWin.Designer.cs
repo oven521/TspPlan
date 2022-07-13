@@ -306,7 +306,6 @@ namespace MainHMI
             // 
             this.ribbonPanel1.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.ribbonPanel1.TabIndex = 1;
-            this.ribbonPanel1.Visible = true;
             // 
             // ribbonBar1
             // 
@@ -523,7 +522,7 @@ namespace MainHMI
             this.ribbonPanel3.Margin = new System.Windows.Forms.Padding(4);
             this.ribbonPanel3.Name = "ribbonPanel3";
             this.ribbonPanel3.Padding = new System.Windows.Forms.Padding(4, 0, 4, 3);
-            this.ribbonPanel3.Size = new System.Drawing.Size(1560, 128);
+            this.ribbonPanel3.Size = new System.Drawing.Size(1443, 128);
             // 
             // 
             // 
@@ -823,7 +822,7 @@ namespace MainHMI
             this.ribbonPanel2.Margin = new System.Windows.Forms.Padding(4);
             this.ribbonPanel2.Name = "ribbonPanel2";
             this.ribbonPanel2.Padding = new System.Windows.Forms.Padding(4, 0, 4, 3);
-            this.ribbonPanel2.Size = new System.Drawing.Size(1560, 128);
+            this.ribbonPanel2.Size = new System.Drawing.Size(1443, 128);
             // 
             // 
             // 

@@ -11,35 +11,55 @@ namespace tsp
 {
     class TspPlan
     {
-        private static int max = 1000;
+        private int max = 1000;
         //后续可能会改成结构体或者链表的结构
-        private double[] SourceX = new double[max];
-        private double[] SourceY = new double[max];
+        private struct Spot
+        {
+            public double X;
+            public double Y;
+        }
+        private Spot[] TargetSpot;
+        private LinkedList<Spot> LinkedSpots;
+        private double[] SourceX;
+        private double[] SourceY;
 
-        //test:1代表贪心，0代表改良圈
-        int ChoiceFlag = 0;
-
+        //test:1代表贪心，0代表改良圈，2代表先贪心后改良圈
+        int ChoiceFlag = 2;
+        //点个数
         private int SpotNum = 0;
         //总距离
         private double sumDistance = 0;
 
         public TspPlan(double[] sourceX, double[] sourceY, int spotNum)
         {
-            this.SourceX = sourceX;
-            //SourceX[spotNum] = SourceX[0];//将终点设为起始点
-            
-            this.SourceY = sourceY;
-            //SourceY[spotNum] = SourceY[0];
-            this.SpotNum = spotNum;
-            //SpotNum = spotNum+1;
+            TargetSpot = new Spot[max];
+            LinkedSpots = new LinkedList<Spot>();
 
-            if(ChoiceFlag==1)
+            this.SourceX = sourceX;
+            this.SourceY = sourceY;
+            this.SpotNum = spotNum;
+            //链表模式
+            Spot CurSpot = new Spot();
+            for (int i=0;i< SpotNum;i++)
+            {
+                CurSpot.X = SourceX[i];
+                CurSpot.Y = SourceY[i];
+                LinkedSpots.AddLast(CurSpot);
+            }
+            ReverseLink();
+
+            if (ChoiceFlag==1)
             {
                greed();
             }
             else if(ChoiceFlag==0)
             {
                CircleModification();
+            }
+            else if(ChoiceFlag==2)
+            {
+                greed();
+                CircleModification();
             }
         }
 
@@ -76,6 +96,11 @@ namespace tsp
                 SourceY[i] = SourceY[end - i + begin];
                 SourceY[end - i + begin] = temp;
             }
+        }
+        
+        private void ReverseLink()
+        {
+            Console.WriteLine(LinkedSpots.First());
         }
         //改良圈算法
         private void CircleModification()

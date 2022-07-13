@@ -70,4 +70,7 @@ D:\Repository\CADStarter\MainHMI\obj\Debug\MainHMI.csproj.GenerateResource.cache
 D:\Repository\CADStarter\MainHMI\obj\Debug\MainHMI.csproj.CoreCompileInputs.cache
 D:\Repository\CADStarter\MainHMI\obj\Debug\MainHMI.exe
 D:\Repository\CADStarter\MainHMI\obj\Debug\MainHMI.pdb
-D:\Repository\CADStarter\MainHMI\obj\Debug\MainHMI.csproj.CopyComplete
+D:\Repository\CADStarter\MainHMI\bin\Debug\DevComponents.DotNetBar2.dll
+D:\Repository\CADStarter\MainHMI\bin\Debug\TXTMananger.dll
+D:\Repository\CADStarter\MainHMI\bin\Debug\TXTMananger.pdb
+D:\Repository\CADStarter\MainHMI\bin\Debug\TXTMananger.dll.config

@@ -30,6 +30,5 @@ D:\Repository\CADStarter\TestDxfDocument\bin\Debug\Canvas.pdb
 D:\Repository\CADStarter\TestDxfDocument\bin\Debug\Canvas.dll.config
 D:\Repository\CADStarter\TestDxfDocument\obj\Debug\TestDxfDocument.csproj.AssemblyReference.cache
 D:\Repository\CADStarter\TestDxfDocument\obj\Debug\TestDxfDocument.csproj.CoreCompileInputs.cache
-D:\Repository\CADStarter\TestDxfDocument\obj\Debug\TestDxfDocument.csproj.CopyComplete
 D:\Repository\CADStarter\TestDxfDocument\obj\Debug\TestDxfDocument.exe
 D:\Repository\CADStarter\TestDxfDocument\obj\Debug\TestDxfDocument.pdb

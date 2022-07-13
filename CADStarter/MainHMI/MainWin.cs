@@ -14,6 +14,7 @@ using ZedGraph;
 using _03_DXFMananger;
 using System.IO;
 using _05_SplineFunction;
+using TXTMananger;
 
 namespace MainHMI {
     public partial class MainWin : Form {
@@ -39,6 +40,7 @@ namespace MainHMI {
         static MainWin _Instance = null;
 
         DxfFileMananger _dxfFileManager;
+        TxtFileMananger _txtFileMananger;
         public MainWin() {
             InitializeComponent();
             //Text = Program.AppName;
@@ -53,11 +55,12 @@ namespace MainHMI {
             canvasMain.MouseMove += new MouseEventHandler(canvasMain_MouseMove);
             canvasMain.Location = new Point(0, 0);
             canvasMain.Size = new Size(600, 1024);
+            canvasMain.MouseClick += new MouseEventHandler(canvasMain_MouseClick);
 
 
             _drawModel = new DrawModel(this.canvasMain);
             _dxfFileManager = new DxfFileMananger("", _drawModel);
-
+            _txtFileMananger = new TxtFileMananger("", _drawModel);
             //初始DrawingState
             lineState = new CDrawingStateLine(this.canvasMain);
             circleRState = new CDrawingStateCircleR(this.canvasMain);
@@ -99,6 +102,11 @@ namespace MainHMI {
             tslLogicalPoint.Text = mouseLocation.ToString();
         }
 
+        void canvasMain_MouseClick(object sender, MouseEventArgs e)
+        {
+            //MessageBox.Show("hhh");
+        }
+
         void canvasMain_MouseUp(object sender, MouseEventArgs e) {
             drawingState.MouseUp(sender, e);
         }
@@ -138,19 +146,19 @@ namespace MainHMI {
             //导入Dxf文件后，重绘界面。
             this.canvasMain.Invalidate();
         }
-
+        //txt文件
         private void btnImportNCFile_Click(object sender, EventArgs e) {
             openFileDialog1.InitialDirectory = @"..\CADDxfDrawing";
-            openFileDialog1.Filter = "NC文件|*.nc;*.cnc|所有文件|*.*";
+            openFileDialog1.Filter = "txt文件|*.txt";
             openFileDialog1.RestoreDirectory = true;
             openFileDialog1.FilterIndex = 1;
 
             if (openFileDialog1.ShowDialog() == DialogResult.OK) {
                 if (openFileDialog1.FileName != "") {
-                    DecodeNCCode2DrawingObj ncDoc = new DecodeNCCode2DrawingObj(this.canvasMain);
-                    ncDoc.Load(openFileDialog1.FileName);
+                    _txtFileMananger.ImportTXTFile(openFileDialog1.FileName, this._drawModel);
                 }
             }
+            this.canvasMain.DrawAndBackupBufferGraphic();
             this.canvasMain.Invalidate();
 
 
@@ -166,33 +174,40 @@ namespace MainHMI {
 
         #region Draw State
         private void btnMove_Click(object sender, EventArgs e) {
+            MessageBox.Show("btnMove_Click");
             drawingState = this.idleState;
             StateSwith(sender);
         }
         private void btnSelect_Click(object sender, EventArgs e) {
+            MessageBox.Show("btnSelect_Click");
             drawingState = selectState;
             StateSwith(sender);
         }
         private void btnLine_Click(object sender, EventArgs e) {
+            MessageBox.Show("btnLine_Click");
             drawingState = lineState;
 
             StateSwith(sender);
         }
 
         private void btnCircle_Click(object sender, EventArgs e) {
+            MessageBox.Show("btnCircle_Click");
             drawingState = circleRState;
             StateSwith(sender);
         }
 
         private void btnRect_Click(object sender, EventArgs e) {
+            MessageBox.Show("btnRect_Click");
             drawingState = rectState;
             StateSwith(sender);
         }
         private void btnArc3p_Click(object sender, EventArgs e) {
+            MessageBox.Show("btnArc3p_Click");
             drawingState = angleArcState;
             StateSwith(sender);
         }
         private void btnPolyLine_Click(object sender, EventArgs e) {
+            MessageBox.Show("btnPolyLine_Click");
             drawingState = polylineState;
             this.rtxtDrawCmd.Text += "指定下一点，【C】切换成圆弧，:" + Environment.NewLine;
             StateSwith(sender);
