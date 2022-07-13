@@ -74,3 +74,7 @@ D:\Repository\CADStarter\MainHMI\bin\Debug\DevComponents.DotNetBar2.dll
 D:\Repository\CADStarter\MainHMI\bin\Debug\TXTMananger.dll
 D:\Repository\CADStarter\MainHMI\bin\Debug\TXTMananger.pdb
 D:\Repository\CADStarter\MainHMI\bin\Debug\TXTMananger.dll.config
+D:\Repository\CADStarter\MainHMI\bin\Debug\sample binary.dxf
+D:\Repository\CADStarter\MainHMI\bin\Debug\sample.dxf
+D:\Repository\CADStarter\MainHMI\bin\Debug\image.jpg
+D:\Repository\CADStarter\MainHMI\obj\Debug\MainHMI.csproj.CopyComplete

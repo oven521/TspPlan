@@ -17,8 +17,10 @@ namespace tsp
     {
         private int sum = 0;//坐标点的总数
         private static int max = 1000;//数组参数
-        private double[] SourceX = new double[max];
-        private double[] SourceY = new double[max];
+
+
+        public List<xPoint> emShapelist = new List<xPoint>();
+        public xPoint stopPt = new xPoint();
         public TspForm()
         {
             InitializeComponent();
@@ -27,7 +29,6 @@ namespace tsp
         private void File_Click(object sender, EventArgs e)
         {
             string TestFilePath="";
-            string sourcetext;
             try
             {
                 OpenFileDialog OpenImage = new OpenFileDialog();
@@ -41,15 +42,13 @@ namespace tsp
                 MessageBox.Show("文件打开失败,请选择txt文件");
             }
 
-            using (StreamReader stream = new StreamReader(TestFilePath))
-            {
-                sourcetext = stream.ReadToEnd();
-            }
-
+            string[] sourcetext = System.IO.File.ReadAllLines(
+                TestFilePath,
+                Encoding.Default);
             Store(sourcetext);
             Stopwatch Swatch = new Stopwatch();
             Swatch.Start();
-            TspPlan Plan = new TspPlan(SourceX, SourceY, sum);
+            TspPlan Plan = new TspPlan(stopPt, emShapelist);
             Swatch.Stop();
             Console.WriteLine(Swatch.Elapsed.ToString());
 
@@ -68,7 +67,7 @@ namespace tsp
         }
 
         //将读入的文件存入数组,根据文件格式可能需要改变
-        private void Store(string sourcetext)
+        private void Store(string[] sourcetext)
         {
             sum = 0;
             string tempstring="";
@@ -79,39 +78,14 @@ namespace tsp
             //遍历sourcetext
             try
             {
-                foreach (char num in sourcetext)
+                foreach (string num in sourcetext)
                 {
+                    xPoint point = new xPoint();
                     //判断读入数据为横坐标或纵坐标
-                    if ((num == '\r' || num == '\n' || num == ' ')&& tempstring != "")
-                    {
-                        if (Xflag)
-                        {
-                            SourceX[sum] = double.Parse(tempstring);
-                        }
-                        else
-                        {
-                            SourceY[sum] = double.Parse(tempstring);
-                            sum++;
-                        }
-                        tempstring = "";
-                    }
-                    else if(num=='X')
-                    {
-                        Xflag = true;
-                    }
-                    else if(num=='Y')
-                    {
-                        Xflag = false;
-                    }
-                    else
-                    {
-                        tempstring += num;
-                    }
-                }
-                if(tempstring != "")
-                {
-                    SourceY[sum] = double.Parse(tempstring);
-                    sum++;
+                    string[] temp = num.Split(' ');
+                    point.XPos = double.Parse(temp[0]);
+                    point.YPos = double.Parse(temp[1]);
+                    emShapelist.Add(point);
                 }
             }
             catch
@@ -123,11 +97,11 @@ namespace tsp
         private void Output(double[] SpotX, double[] SpotY)
         {
 
-            using(StreamWriter stream= new StreamWriter("路径结果.txt"))
+            using(StreamWriter stream= new StreamWriter("结果.txt"))
             {
-                for(int i=0;i<sum;i++)
+                for(int i=0;i< emShapelist.Count(); i++)
                 {
-                    stream.WriteLine("X" + SpotX[i] + " Y" + SpotY[i]);
+                    stream.WriteLine("X" + emShapelist[i].XPos + " Y" + emShapelist[i].YPos);
                 }
             }
         }

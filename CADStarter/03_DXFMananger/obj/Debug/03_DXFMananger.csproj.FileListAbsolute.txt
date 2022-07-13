@@ -40,6 +40,5 @@ D:\Repository\CADStarter\03_DXFMananger\bin\Debug\netDxf.xml
 D:\Repository\CADStarter\03_DXFMananger\bin\Debug\05_SplineFunction.pdb
 D:\Repository\CADStarter\03_DXFMananger\obj\Debug\03_DXFMananger.csproj.AssemblyReference.cache
 D:\Repository\CADStarter\03_DXFMananger\obj\Debug\03_DXFMananger.csproj.CoreCompileInputs.cache
-D:\Repository\CADStarter\03_DXFMananger\obj\Debug\03_DXFMananger.csproj.CopyComplete
 D:\Repository\CADStarter\03_DXFMananger\obj\Debug\03_DXFMananger.dll
 D:\Repository\CADStarter\03_DXFMananger\obj\Debug\03_DXFMananger.pdb
