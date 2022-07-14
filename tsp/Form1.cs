@@ -15,10 +15,6 @@ namespace tsp
 {
     public partial class TspForm : Form
     {
-        private int sum = 0;//坐标点的总数
-        private static int max = 1000;//数组参数
-
-
         public List<xPoint> emShapelist = new List<xPoint>();
         public xPoint stopPt = new xPoint();
         public TspForm()
@@ -36,45 +32,28 @@ namespace tsp
                 {
                     TestFilePath = OpenImage.FileName;
                 }
+                string[] sourcetext = System.IO.File.ReadAllLines(
+                TestFilePath,
+                Encoding.Default);
+                Store(sourcetext);
             }
             catch
             {
                 MessageBox.Show("文件打开失败,请选择txt文件");
             }
-
-            string[] sourcetext = System.IO.File.ReadAllLines(
-                TestFilePath,
-                Encoding.Default);
-            Store(sourcetext);
             Stopwatch Swatch = new Stopwatch();
             Swatch.Start();
             TspPlan Plan = new TspPlan(stopPt, emShapelist);
             Swatch.Stop();
             Console.WriteLine(Swatch.Elapsed.ToString());
 
-#if DEBU//test
-            Console.WriteLine(sourcetext);
-            double[] testX = Plan.GetX();
-            double[] testY = Plan.GetY();
-            for(int i=0;i<Plan.GetLength();i++)
-            {
-                Console.WriteLine($"{testX[i]},{testY[i]}");
-            }
-#endif
-
             Console.WriteLine($"最短路径为 {Plan.SumDistance()}");
-            Output(Plan.GetX(),Plan.GetY());
+            Output(Plan.GetPt());
         }
 
         //将读入的文件存入数组,根据文件格式可能需要改变
         private void Store(string[] sourcetext)
         {
-            sum = 0;
-            string tempstring="";
-            bool Xflag = true;
-            //test
-            //Console.WriteLine(sourcetext);
-
             //遍历sourcetext
             try
             {
@@ -94,14 +73,14 @@ namespace tsp
             }
         }
 
-        private void Output(double[] SpotX, double[] SpotY)
+        private void Output(List<xPoint> xPoints)
         {
 
             using(StreamWriter stream= new StreamWriter("结果.txt"))
             {
-                for(int i=0;i< emShapelist.Count(); i++)
+                for(int i=0;i< xPoints.Count(); i++)
                 {
-                    stream.WriteLine("X" + emShapelist[i].XPos + " Y" + emShapelist[i].YPos);
+                    stream.WriteLine("X" + xPoints[i].XPos + " Y" + xPoints[i].YPos);
                 }
             }
         }
