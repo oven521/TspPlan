@@ -131,6 +131,7 @@ namespace MainHMI {
         }
 
         private void btnImportDxfFile_Click(object sender, EventArgs e) {
+            
             openFileDialog1.InitialDirectory = @"..\CADDxfDrawing";
             openFileDialog1.Filter = "DXF文件|*.dxf|所有文件|*.*";
             openFileDialog1.RestoreDirectory = true;
@@ -152,7 +153,7 @@ namespace MainHMI {
             openFileDialog1.Filter = "txt文件|*.txt";
             openFileDialog1.RestoreDirectory = true;
             openFileDialog1.FilterIndex = 1;
-
+            
             if (openFileDialog1.ShowDialog() == DialogResult.OK) {
                 if (openFileDialog1.FileName != "") {
                     _txtFileMananger.ImportTXTFile(openFileDialog1.FileName, this._drawModel);
@@ -174,40 +175,33 @@ namespace MainHMI {
 
         #region Draw State
         private void btnMove_Click(object sender, EventArgs e) {
-            MessageBox.Show("btnMove_Click");
             drawingState = this.idleState;
             StateSwith(sender);
         }
         private void btnSelect_Click(object sender, EventArgs e) {
-            MessageBox.Show("btnSelect_Click");
             drawingState = selectState;
             StateSwith(sender);
         }
         private void btnLine_Click(object sender, EventArgs e) {
-            MessageBox.Show("btnLine_Click");
             drawingState = lineState;
 
             StateSwith(sender);
         }
 
         private void btnCircle_Click(object sender, EventArgs e) {
-            MessageBox.Show("btnCircle_Click");
             drawingState = circleRState;
             StateSwith(sender);
         }
 
         private void btnRect_Click(object sender, EventArgs e) {
-            MessageBox.Show("btnRect_Click");
             drawingState = rectState;
             StateSwith(sender);
         }
         private void btnArc3p_Click(object sender, EventArgs e) {
-            MessageBox.Show("btnArc3p_Click");
             drawingState = angleArcState;
             StateSwith(sender);
         }
         private void btnPolyLine_Click(object sender, EventArgs e) {
-            MessageBox.Show("btnPolyLine_Click");
             drawingState = polylineState;
             this.rtxtDrawCmd.Text += "指定下一点，【C】切换成圆弧，:" + Environment.NewLine;
             StateSwith(sender);
@@ -238,5 +232,14 @@ namespace MainHMI {
             this._drawModel.BoomPolyLines();
         }
 
+        private void refresh_Click(object sender, EventArgs e)
+        {
+            _drawModel.RemoveAllDrawingObject();
+            this.canvasMain.Refresh();
+            this.canvasMain.DrawAndBackupBufferGraphic();
+            this.canvasMain.Invalidate();
+
+            
+        }
     }
 }

@@ -76,6 +76,7 @@ namespace TXTMananger
 
         public void ImportTXTFile(string filePath, DrawModel model)
         {
+            
             string sourcetext;
             using (StreamReader stream = new StreamReader(filePath))
             {

@@ -43,6 +43,7 @@ namespace MainHMI
             this.btnReverse = new DevComponents.DotNetBar.ButtonItem();
             this.btnMergeLineSegs = new DevComponents.DotNetBar.ButtonItem();
             this.btnBoomLineSegs = new DevComponents.DotNetBar.ButtonItem();
+            this.refresh = new DevComponents.DotNetBar.ButtonItem();
             this.ribbonBar2 = new DevComponents.DotNetBar.RibbonBar();
             this.galleryContainer3 = new DevComponents.DotNetBar.GalleryContainer();
             this.btnSelect = new DevComponents.DotNetBar.ButtonItem();
@@ -324,10 +325,11 @@ namespace MainHMI
             this.ribbonBar1.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.btnReverse,
             this.btnMergeLineSegs,
-            this.btnBoomLineSegs});
+            this.btnBoomLineSegs,
+            this.refresh});
             this.ribbonBar1.Location = new System.Drawing.Point(480, 0);
             this.ribbonBar1.Name = "ribbonBar1";
-            this.ribbonBar1.Size = new System.Drawing.Size(181, 125);
+            this.ribbonBar1.Size = new System.Drawing.Size(234, 125);
             this.ribbonBar1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.ribbonBar1.TabIndex = 2;
             this.ribbonBar1.Text = "优化";
@@ -363,6 +365,14 @@ namespace MainHMI
             this.btnBoomLineSegs.SubItemsExpandWidth = 14;
             this.btnBoomLineSegs.Text = "炸开图形";
             this.btnBoomLineSegs.Click += new System.EventHandler(this.btnBoomLineSegs_Click);
+            // 
+            // refresh
+            // 
+            this.refresh.FontBold = true;
+            this.refresh.Name = "refresh";
+            this.refresh.SubItemsExpandWidth = 14;
+            this.refresh.Text = "刷新";
+            this.refresh.Click += new System.EventHandler(this.refresh_Click);
             // 
             // ribbonBar2
             // 
@@ -1865,7 +1875,6 @@ namespace MainHMI
         private DevComponents.DotNetBar.ButtonItem btnMove;
         private DevComponents.DotNetBar.ButtonItem btnBoomLineSegs;
         private System.Windows.Forms.ToolTip toolTip1;
-
-
-	}
+        private DevComponents.DotNetBar.ButtonItem refresh;
+    }
 }

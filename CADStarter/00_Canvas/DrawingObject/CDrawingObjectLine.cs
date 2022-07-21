@@ -144,9 +144,9 @@ namespace CADEngine.DrawingObject {
             else {
                 _drawPen = GDIDrawMaterails.GreenPen2;
             }
-
+            
             CreateArrowLines();
-
+            
             PointF start = StartPoint;
             PointF end = EndPoint;
             if (_bulge == 0 && _ArcObj == null) {
@@ -158,7 +158,7 @@ namespace CADEngine.DrawingObject {
                 _ArcObj.Selected = this.Selected;
                 _ArcObj.IsInClosedPolyLine = this.IsInClosedPolyLine;
                 _ArcObj.Draw(g);
-
+                
                 g.DrawLine(GDIDrawMaterails.YellowDashPen, start, this._bulge_center);
                 g.DrawLine(GDIDrawMaterails.YellowDashPen, end, this._bulge_center);
             }

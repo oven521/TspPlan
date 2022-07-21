@@ -46,7 +46,7 @@ namespace _03_DXFMananger {
                 return;
             }
 
-            // drawObjectList.Clear();
+             //drawObjectList.Clear();
 
             DxfDocument dxf = DxfDocument.Load(file);
 

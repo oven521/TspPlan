@@ -30,6 +30,7 @@ namespace tsp
         private void InitializeComponent()
         {
             this.File = new System.Windows.Forms.Button();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // File
@@ -42,11 +43,27 @@ namespace tsp
             this.File.UseVisualStyleBackColor = true;
             this.File.Click += new System.EventHandler(this.File_Click);
             // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "贪心",
+            "改良圈",
+            "贪心+改良圈",
+            "双生成树",
+            "最小权匹配"});
+            this.comboBox1.Location = new System.Drawing.Point(643, 304);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(121, 23);
+            this.comboBox1.TabIndex = 1;
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            // 
             // TspForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.File);
             this.Name = "TspForm";
             this.Text = "TspForm";
@@ -57,6 +74,7 @@ namespace tsp
         #endregion
 
         private System.Windows.Forms.Button File;
+        private System.Windows.Forms.ComboBox comboBox1;
     }
 }
 

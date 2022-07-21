@@ -1,4 +1,18 @@
-﻿using System;
+﻿/*
+改进方向：不设置起点终点，按照回路的方式进行计算（即终点和起点相同）
+
+目前正在写的算法：凸包算法
+考虑到观感性，凸包算法理论上不会产生交叉
+    时间复杂度：O(n^2*lg(n))
+Step 1：构造凸包，并将它作为最初的子路径
+Step 2：对于所有不在子路径中的点r，找到其相应的在子路径中的点i，j，使得Distance[i][r]+Distance[r][j]-Distance[i][j] 最小
+Step 3：对于Step 2中找到的所有（i，j，0r），找到使（Distance[i][r]+Distance[r][j]）/Distance[i][j] 最小的那一组，将这组的r插入到i和j中间
+Step 4：回到Step 2，直到所有的点都加入到路径中
+
+考虑写一个动态规划找最优解
+*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -9,16 +23,16 @@ namespace tsp
         public double XPos;
         public double YPos;
     }
+    //GetPt()获取排序后的点
     class TspPlan
-    {//GetPt()获取排序后的点
+    {
         private List<xPoint> PointList = new List<xPoint>();
 
-        //1代表贪心，0代表改良圈，2代表先贪心后改良圈
-        private int ChoiceFlag = 2;
+        private List<List<double>> DistanceMap = new List<List<double>>();
         //总距离
         private double sumDistance = 0;
-
-        public TspPlan(xPoint stopPt, List<xPoint> emShapelist)
+        //1代表贪心，0代表改良圈，2代表先贪心后改良圈
+        public TspPlan(xPoint stopPt, List<xPoint> emShapelist, int ChoiceFlag = 2)
         {
             PointList = emShapelist;
 
@@ -37,18 +51,43 @@ namespace tsp
             PointList[StartPt] = PointList[0];
             PointList[0] = temp;
 
-            if (ChoiceFlag == 1)
+
+            //
+            if (ChoiceFlag == 1)//单贪心
             {
-                greed();
+                NearestNeighbor();
             }
-            else if (ChoiceFlag == 0)
+            else if (ChoiceFlag == 0)//单改良圈
             {
+                double max = 0;
+                int EndPt = 0;//设置终点
+                for (int i = 1; i < PointList.Count() - 1; i++)
+                {
+                    double cur = Distance(stopPt.XPos, stopPt.YPos, PointList[i].XPos, PointList[i].YPos);
+                    if (max < cur)
+                    {
+                        max = cur;
+                        EndPt = i;
+                    }
+                }
+                temp = PointList[EndPt];
+                PointList[EndPt] = PointList[PointList.Count() - 1];
+                PointList[PointList.Count() - 1] = temp;
+
+                //试了下将终点设为起点再删除该点的办法，若最优解的终点在起点附近可能可以达到比贪心+改良圈更好的效果，可能适用于闭合图案类型
+                //PointList.Add(PointList[0]);
+                CircleModification();
+                //sumDistance -= Distance(PointList[PointList.Count() - 1].XPos, PointList[PointList.Count() - 1].YPos, PointList[PointList.Count() - 2].XPos, PointList[PointList.Count() - 2].YPos);
+                //PointList.RemoveAt(PointList.Count() - 1);
+            }
+            else if (ChoiceFlag == 2)//贪心+改良圈，由于贪心本身能达到局部较好解，使得改良圈迭代次数更少，所以可能会出现贪心+改良圈比单贪心运行效率更高的情况
+            {
+                NearestNeighbor();
                 CircleModification();
             }
-            else if (ChoiceFlag == 2)
+            else if (ChoiceFlag == 3)//双生成树
             {
-                greed();
-                CircleModification();
+                CaculateDistanceMap();
             }
         }
 
@@ -80,8 +119,9 @@ namespace tsp
                 PointList[i] = temp;
             }
         }
-
-        //改良圈算法
+        /// <summary>
+        /// 改良圈算法
+        /// </summary>
         private void CircleModification()
         {
             int StopFlag;//停止标志
@@ -108,7 +148,7 @@ namespace tsp
                         //Console.WriteLine(sumDistance);
                         //Console.WriteLine(CycleIndex);
                     }
-                    //Console.WriteLine("------------------------------");
+
                 }
                 if (StopFlag == 0)
                 {
@@ -117,8 +157,10 @@ namespace tsp
             }
             //Console.WriteLine(testcircle);
         }
-
-        private void greed()
+        /// <summary>
+        /// 最近邻算法
+        /// </summary>
+        private void NearestNeighbor()
         {
             int testcircle = 0;//循环次数
             for (int i = 0; i < PointList.Count() - 1; i++)
@@ -144,6 +186,25 @@ namespace tsp
             //Console.WriteLine(testcircle);
             CalculateSumDistance();
             //Console.WriteLine(sumDistance);
+        }
+
+       //凸包算法
+       // 时间复杂度：O(n^2*lg(n))
+       //Step 1：构造凸包，并将它作为最初的子路径
+
+       //Step 2：对于所有不在子路径中的点r，找到其相应的在子路径中的点i，j，使得Distance[i][r]+Distance[r][j]-Distance[i][j] 最小
+
+       //Step 3：对于Step 2中找到的所有（i，j，0r），找到使（Distance[i][r]+Distance[r][j]）/Distance[i][j] 最小的那一组，将这组的r插入到i和j中间
+
+       // Step 4：回到Step 2，直到所有的点都加入到路径中
+
+
+
+
+        //双生成树
+        private void CaculateDistanceMap()
+        {
+            
         }
     }
 }

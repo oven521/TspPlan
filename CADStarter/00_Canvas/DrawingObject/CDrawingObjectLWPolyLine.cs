@@ -107,6 +107,7 @@ namespace CADEngine.DrawingObject {
                 line.IsInClosedPolyLine = this.IsClosed();
                 line.Draw(g);
             }
+            
         }
 
     }

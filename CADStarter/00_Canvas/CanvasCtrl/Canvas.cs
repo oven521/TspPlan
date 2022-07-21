@@ -148,10 +148,10 @@ namespace MainHMI {
            new Rectangle(0, 0, this.Width, this.Height));
         }
         public void DrawAndBackupBufferGraphic() {
-
             if (_Model == null || bufferedGraphic == null)
                 return;
             Graphics g = this.bufferedGraphic.Graphics;
+
             ResetTransform(g);
             g.FillRectangle(Brushes.DarkSlateGray, new Rectangle(0, 0, this.Width, this.Height));
             g.SmoothingMode = SmoothingMode.HighSpeed;
@@ -406,6 +406,13 @@ namespace MainHMI {
                 LPtGridYPos -= (int)gridLogicalInterval;
             } while (SPtGridYpos <= SPLastGridYPos);
 
+        }
+
+        //add
+        public void Reset()
+        {
+            //InitializeComponent();
+            //RecreateBuffers();
         }
     }
 }

@@ -17,6 +17,8 @@ namespace tsp
     {
         public List<xPoint> emShapelist = new List<xPoint>();
         public xPoint stopPt = new xPoint();
+
+        private int ChoiceFlag = 2;
         public TspForm()
         {
             InitializeComponent();
@@ -43,7 +45,7 @@ namespace tsp
             }
             Stopwatch Swatch = new Stopwatch();
             Swatch.Start();
-            TspPlan Plan = new TspPlan(stopPt, emShapelist);
+            TspPlan Plan = new TspPlan(stopPt, emShapelist, ChoiceFlag);
             Swatch.Stop();
             Console.WriteLine(Swatch.Elapsed.ToString());
 
@@ -85,5 +87,20 @@ namespace tsp
             }
         }
 
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (comboBox1.SelectedItem.ToString())
+            {
+                case "贪心": ChoiceFlag = 1;break;
+                case "改良圈": ChoiceFlag = 0;break;
+                case "改良圈+贪心":ChoiceFlag = 2;break;
+                case "双生成树":                ;break;
+                case "最小权匹配":              ;break;
+
+
+            }
+
+
+        }
     }
 }
