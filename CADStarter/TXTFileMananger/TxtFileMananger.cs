@@ -25,47 +25,17 @@ namespace TXTMananger
             _model = model;
         }
 
-        private void DeCodeTXTFile(string sourcetext)
+        private void DeCodeTXTFile(string[] sourcetext)
         {
-            string tempstring = "";
-            bool Xflag = true;
-            float X = 0;
-            float Y;
-            //test
             //Console.WriteLine(sourcetext);
-
             //遍历sourcetext
             try
             {
-                foreach (char Character in sourcetext)
+                foreach (string Str in sourcetext)
                 {
-                    //判断读入数据为横坐标或纵坐标
-                    if ((Character == '\r' || Character == '\n' || Character == ' ') && tempstring != "")
-                    {
-                        if (Xflag)
-                        {
-                            X = float.Parse(tempstring);
-                        }
-                        else
-                        {
-                            Y = float.Parse(tempstring);
-                            PointF Point = new PointF(X, Y);
-                            SpotList.Add(Point);
-                        }
-                        tempstring = "";
-                    }
-                    else if (Character == 'X')
-                    {
-                        Xflag = true;
-                    }
-                    else if (Character == 'Y')
-                    {
-                        Xflag = false;
-                    }
-                    else if(char.IsDigit(Character))
-                    {
-                        tempstring += Character;
-                    }
+                    string[] Coordinate = Str.Split(' ');
+                    PointF Point = new PointF(float.Parse(Coordinate[0]), float.Parse(Coordinate[1]));
+                    SpotList.Add(Point);
                 }
             }
             catch
@@ -76,19 +46,15 @@ namespace TXTMananger
 
         public void ImportTXTFile(string filePath, DrawModel model)
         {
-            
-            string sourcetext;
-            using (StreamReader stream = new StreamReader(filePath))
-            {
-                sourcetext = stream.ReadToEnd();
-            }
+            string[] sourcetext = File.ReadAllLines(filePath, Encoding.Default);
+            //将读入的点存入SpotList当中
+            SpotList.Clear();
             DeCodeTXTFile(sourcetext);
-            //将读入的点存入singleline当中
+
             List<CDrawingObjectBase> drawObjectList = model.DrawingObjectList;
             CDrawingObjectLWPolyLine lwPolyLine = new CDrawingObjectLWPolyLine(model.DrawCanvas);
-            for (int i=0;i<SpotList.Count()-1;i++)
+            for (int i = 0; i < SpotList.Count() - 1; i++)
             {
-
                 CDrawingObjectSingleLine l = new CDrawingObjectSingleLine(SpotList[i], SpotList[i + 1], 0, model.DrawCanvas);
                 lwPolyLine.AddLine(l);
 

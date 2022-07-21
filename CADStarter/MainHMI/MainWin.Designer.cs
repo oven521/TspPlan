@@ -81,6 +81,7 @@ namespace MainHMI
             this.buttonItem52 = new DevComponents.DotNetBar.ButtonItem();
             this.buttonItem24 = new DevComponents.DotNetBar.ButtonItem();
             this.buttonItem25 = new DevComponents.DotNetBar.ButtonItem();
+            this.wizard1 = new DevComponents.DotNetBar.Wizard();
             this.ribbonPanel2 = new DevComponents.DotNetBar.RibbonPanel();
             this.ribbonBar6 = new DevComponents.DotNetBar.RibbonBar();
             this.buttonItem26 = new DevComponents.DotNetBar.ButtonItem();
@@ -169,6 +170,15 @@ namespace MainHMI
             this.buttonFontUnderline = new DevComponents.DotNetBar.ButtonItem();
             this.buttonItem1 = new DevComponents.DotNetBar.ButtonItem();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.TSP = new DevComponents.DotNetBar.RibbonBar();
+            this.TspCombobox = new DevComponents.DotNetBar.ComboBoxItem();
+            this.贪心加改良圈 = new DevComponents.Editors.ComboItem();
+            this.贪心 = new DevComponents.Editors.ComboItem();
+            this.改良圈 = new DevComponents.Editors.ComboItem();
+            this.凸包 = new DevComponents.Editors.ComboItem();
+            this.双生成树 = new DevComponents.Editors.ComboItem();
+            this.最小权匹配 = new DevComponents.Editors.ComboItem();
+            this.TspButton = new DevComponents.DotNetBar.ButtonItem();
             this.ribbonControl1.SuspendLayout();
             this.ribbonPanel1.SuspendLayout();
             this.ribbonPanel3.SuspendLayout();
@@ -242,6 +252,7 @@ namespace MainHMI
             this.ribbonControl1.CaptionVisible = true;
             this.ribbonControl1.Controls.Add(this.ribbonPanel1);
             this.ribbonControl1.Controls.Add(this.ribbonPanel3);
+            this.ribbonControl1.Controls.Add(this.wizard1);
             this.ribbonControl1.Controls.Add(this.ribbonPanel2);
             this.ribbonControl1.Dock = System.Windows.Forms.DockStyle.Top;
             this.ribbonControl1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -286,6 +297,7 @@ namespace MainHMI
             // ribbonPanel1
             // 
             this.ribbonPanel1.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.ribbonPanel1.Controls.Add(this.TSP);
             this.ribbonPanel1.Controls.Add(this.ribbonBar1);
             this.ribbonPanel1.Controls.Add(this.ribbonBar2);
             this.ribbonPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -320,7 +332,6 @@ namespace MainHMI
             // 
             this.ribbonBar1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.ribbonBar1.ContainerControlProcessDialogKey = true;
-            this.ribbonBar1.Dock = System.Windows.Forms.DockStyle.Left;
             this.ribbonBar1.DragDropSupport = true;
             this.ribbonBar1.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.btnReverse,
@@ -329,7 +340,7 @@ namespace MainHMI
             this.refresh});
             this.ribbonBar1.Location = new System.Drawing.Point(480, 0);
             this.ribbonBar1.Name = "ribbonBar1";
-            this.ribbonBar1.Size = new System.Drawing.Size(234, 125);
+            this.ribbonBar1.Size = new System.Drawing.Size(231, 125);
             this.ribbonBar1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.ribbonBar1.TabIndex = 2;
             this.ribbonBar1.Text = "优化";
@@ -822,6 +833,48 @@ namespace MainHMI
             this.buttonItem25.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
             this.buttonItem25.Name = "buttonItem25";
             this.buttonItem25.Text = "Print Area";
+            // 
+            // wizard1
+            // 
+            this.wizard1.CancelButtonText = "Cancel";
+            this.wizard1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.wizard1.FinishButtonTabIndex = 3;
+            // 
+            // 
+            // 
+            this.wizard1.FooterStyle.BackColor = System.Drawing.SystemColors.Control;
+            this.wizard1.FooterStyle.BackColorGradientAngle = 90;
+            this.wizard1.FooterStyle.BorderBottomWidth = 1;
+            this.wizard1.FooterStyle.BorderColor = System.Drawing.SystemColors.Control;
+            this.wizard1.FooterStyle.BorderLeftWidth = 1;
+            this.wizard1.FooterStyle.BorderRightWidth = 1;
+            this.wizard1.FooterStyle.BorderTop = DevComponents.DotNetBar.eStyleBorderType.Etched;
+            this.wizard1.FooterStyle.BorderTopColor = System.Drawing.SystemColors.Control;
+            this.wizard1.FooterStyle.BorderTopWidth = 1;
+            this.wizard1.FooterStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.wizard1.FooterStyle.TextAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Center;
+            this.wizard1.FooterStyle.TextColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelText;
+            this.wizard1.HeaderCaptionFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.wizard1.HeaderDescriptionFont = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.wizard1.HeaderDescriptionIndent = 16;
+            // 
+            // 
+            // 
+            this.wizard1.HeaderStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.wizard1.HeaderStyle.BackColorGradientAngle = 90;
+            this.wizard1.HeaderStyle.BorderBottom = DevComponents.DotNetBar.eStyleBorderType.Etched;
+            this.wizard1.HeaderStyle.BorderBottomWidth = 1;
+            this.wizard1.HeaderStyle.BorderColor = System.Drawing.SystemColors.Control;
+            this.wizard1.HeaderStyle.BorderLeftWidth = 1;
+            this.wizard1.HeaderStyle.BorderRightWidth = 1;
+            this.wizard1.HeaderStyle.BorderTopWidth = 1;
+            this.wizard1.HeaderStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.wizard1.HeaderStyle.TextAlignment = DevComponents.DotNetBar.eStyleTextAlignment.Center;
+            this.wizard1.HeaderStyle.TextColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelText;
+            this.wizard1.Location = new System.Drawing.Point(0, 0);
+            this.wizard1.Name = "wizard1";
+            this.wizard1.Size = new System.Drawing.Size(1443, 188);
+            this.wizard1.TabIndex = 5;
             // 
             // ribbonPanel2
             // 
@@ -1700,6 +1753,90 @@ namespace MainHMI
             this.buttonItem1.Name = "buttonItem1";
             this.buttonItem1.Text = "选中";
             // 
+            // TSP
+            // 
+            this.TSP.AutoOverflowEnabled = true;
+            this.TSP.BackColor = System.Drawing.SystemColors.Control;
+            // 
+            // 
+            // 
+            this.TSP.BackgroundMouseOverStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            // 
+            // 
+            // 
+            this.TSP.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.TSP.ContainerControlProcessDialogKey = true;
+            this.TSP.DragDropSupport = true;
+            this.TSP.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
+            this.TspCombobox,
+            this.TspButton});
+            this.TSP.LayoutOrientation = DevComponents.DotNetBar.eOrientation.Vertical;
+            this.TSP.Location = new System.Drawing.Point(717, 0);
+            this.TSP.Name = "TSP";
+            this.TSP.Size = new System.Drawing.Size(229, 125);
+            this.TSP.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.TSP.TabIndex = 3;
+            this.TSP.Text = "排序方案";
+            // 
+            // 
+            // 
+            this.TSP.TitleStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            // 
+            // 
+            // 
+            this.TSP.TitleStyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.TSP.ItemClick += new System.EventHandler(this.TSP_ItemClick);
+            // 
+            // TspCombobox
+            // 
+            this.TspCombobox.BeginGroup = true;
+            this.TspCombobox.ComboWidth = 150;
+            this.TspCombobox.DropDownHeight = 100;
+            this.TspCombobox.DropDownWidth = 200;
+            this.TspCombobox.ItemHeight = 20;
+            this.TspCombobox.Items.AddRange(new object[] {
+            this.贪心加改良圈,
+            this.贪心,
+            this.改良圈,
+            this.凸包,
+            this.双生成树,
+            this.最小权匹配});
+            this.TspCombobox.Name = "TspCombobox";
+            this.TspCombobox.ComboBoxTextChanged += new System.EventHandler(this.TspCombobox_ComboBoxTextChanged);
+            this.TspCombobox.Click += new System.EventHandler(this.TspCombobox_Click);
+            // 
+            // 贪心加改良圈
+            // 
+            this.贪心加改良圈.Text = "贪心加改良圈";
+            // 
+            // 贪心
+            // 
+            this.贪心.Text = "贪心";
+            // 
+            // 改良圈
+            // 
+            this.改良圈.Text = "改良圈";
+            // 
+            // 凸包
+            // 
+            this.凸包.Text = "凸包";
+            // 
+            // 双生成树
+            // 
+            this.双生成树.Text = "双生成树";
+            // 
+            // 最小权匹配
+            // 
+            this.最小权匹配.Text = "最小权匹配";
+            // 
+            // TspButton
+            // 
+            this.TspButton.FontBold = true;
+            this.TspButton.Name = "TspButton";
+            this.TspButton.SubItemsExpandWidth = 14;
+            this.TspButton.Text = "输入文件";
+            this.TspButton.Click += new System.EventHandler(this.buttonItem2_Click);
+            // 
             // MainWin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -1876,5 +2013,15 @@ namespace MainHMI
         private DevComponents.DotNetBar.ButtonItem btnBoomLineSegs;
         private System.Windows.Forms.ToolTip toolTip1;
         private DevComponents.DotNetBar.ButtonItem refresh;
+        private DevComponents.DotNetBar.Wizard wizard1;
+        private DevComponents.DotNetBar.RibbonBar TSP;
+        private DevComponents.DotNetBar.ComboBoxItem TspCombobox;
+        private DevComponents.Editors.ComboItem 贪心加改良圈;
+        private DevComponents.Editors.ComboItem 贪心;
+        private DevComponents.Editors.ComboItem 改良圈;
+        private DevComponents.Editors.ComboItem 凸包;
+        private DevComponents.Editors.ComboItem 双生成树;
+        private DevComponents.Editors.ComboItem 最小权匹配;
+        private DevComponents.DotNetBar.ButtonItem TspButton;
     }
 }

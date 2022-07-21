@@ -15,6 +15,8 @@ using _03_DXFMananger;
 using System.IO;
 using _05_SplineFunction;
 using TXTMananger;
+using Tsp;
+using System.Diagnostics;
 
 namespace MainHMI {
     public partial class MainWin : Form {
@@ -41,6 +43,8 @@ namespace MainHMI {
 
         DxfFileMananger _dxfFileManager;
         TxtFileMananger _txtFileMananger;
+
+        int ChoiceFlag;
         public MainWin() {
             InitializeComponent();
             //Text = Program.AppName;
@@ -149,13 +153,15 @@ namespace MainHMI {
         }
         //txt文件
         private void btnImportNCFile_Click(object sender, EventArgs e) {
+
             openFileDialog1.InitialDirectory = @"..\CADDxfDrawing";
             openFileDialog1.Filter = "txt文件|*.txt";
             openFileDialog1.RestoreDirectory = true;
             openFileDialog1.FilterIndex = 1;
-            
+
             if (openFileDialog1.ShowDialog() == DialogResult.OK) {
                 if (openFileDialog1.FileName != "") {
+                    refresh_Click(sender, e);//清除原页面线段
                     _txtFileMananger.ImportTXTFile(openFileDialog1.FileName, this._drawModel);
                 }
             }
@@ -235,11 +241,63 @@ namespace MainHMI {
         private void refresh_Click(object sender, EventArgs e)
         {
             _drawModel.RemoveAllDrawingObject();
-            this.canvasMain.Refresh();
             this.canvasMain.DrawAndBackupBufferGraphic();
             this.canvasMain.Invalidate();
+        }
 
-            
+        private void TspCombobox_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void TspCombobox_ComboBoxTextChanged(object sender, EventArgs e)
+        {
+            switch (TspCombobox.SelectedText.ToString())
+            {
+                case "贪心": ChoiceFlag = 1; break;
+                case "改良圈": ChoiceFlag = 0; break;
+                case "改良圈+贪心": ChoiceFlag = 2; break;
+                case "双生成树":; break;
+                case "最小权匹配":; break;
+                case "凸包":;break;
+
+
+            }
+        }
+
+        private void buttonItem2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void TSP_ItemClick(object sender, EventArgs e)
+        {
+            string TestFilePath = "";
+            try
+            {
+                OpenFileDialog OpenImage = new OpenFileDialog();
+                if (OpenImage.ShowDialog() == DialogResult.OK)
+                {
+                    TestFilePath = OpenImage.FileName;
+                }
+                string[] sourcetext = System.IO.File.ReadAllLines(
+                TestFilePath,
+                Encoding.Default);
+
+                //Store(sourcetext);
+            }
+            catch
+            {
+                MessageBox.Show("文件打开失败,请选择txt文件");
+            }
+            Stopwatch Swatch = new Stopwatch();
+            Swatch.Start();
+            //TspPlan Plan = new TspPlan(stopPt, emShapelist, ChoiceFlag);
+            Swatch.Stop();
+            Console.WriteLine(Swatch.Elapsed.ToString());
+
+            //Console.WriteLine($"最短路径为 {Plan.SumDistance()}");
+            //Output(Plan.GetPt());
         }
     }
 }

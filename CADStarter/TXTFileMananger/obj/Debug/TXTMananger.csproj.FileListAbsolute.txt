@@ -27,4 +27,3 @@ D:\Repository\CADStarter\TXTFileMananger\bin\Debug\TXTMananger.dll
 D:\Repository\CADStarter\TXTFileMananger\bin\Debug\TXTMananger.pdb
 D:\Repository\CADStarter\TXTFileMananger\obj\Debug\TXTMananger.dll
 D:\Repository\CADStarter\TXTFileMananger\obj\Debug\TXTMananger.pdb
-D:\Repository\CADStarter\TXTFileMananger\obj\Debug\TXTMananger.csproj.CopyComplete

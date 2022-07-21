@@ -26,7 +26,7 @@ namespace tsp
 
         private void File_Click(object sender, EventArgs e)
         {
-            string TestFilePath="";
+            string TestFilePath = "";
             try
             {
                 OpenFileDialog OpenImage = new OpenFileDialog();
@@ -78,11 +78,11 @@ namespace tsp
         private void Output(List<xPoint> xPoints)
         {
 
-            using(StreamWriter stream= new StreamWriter("结果.txt"))
+            using (StreamWriter stream = new StreamWriter("结果.txt"))
             {
-                for(int i=0;i< xPoints.Count(); i++)
+                for (int i = 0; i < xPoints.Count(); i++)
                 {
-                    stream.WriteLine("X" + xPoints[i].XPos + " Y" + xPoints[i].YPos);
+                    stream.WriteLine(xPoints[i].XPos + " " + xPoints[i].YPos);
                 }
             }
         }
@@ -91,11 +91,11 @@ namespace tsp
         {
             switch (comboBox1.SelectedItem.ToString())
             {
-                case "贪心": ChoiceFlag = 1;break;
-                case "改良圈": ChoiceFlag = 0;break;
-                case "改良圈+贪心":ChoiceFlag = 2;break;
-                case "双生成树":                ;break;
-                case "最小权匹配":              ;break;
+                case "贪心": ChoiceFlag = 1; break;
+                case "改良圈": ChoiceFlag = 0; break;
+                case "改良圈+贪心": ChoiceFlag = 2; break;
+                case "双生成树":; break;
+                case "最小权匹配":; break;
 
 
             }
