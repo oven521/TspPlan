@@ -1,0 +1,16 @@
+D:\Repository\CADStarter\TspPlan\bin\Debug\TspPlan.dll
+D:\Repository\CADStarter\TspPlan\bin\Debug\TspPlan.pdb
+D:\Repository\CADStarter\TspPlan\obj\Debug\Tsp.csproj.AssemblyReference.cache
+D:\Repository\CADStarter\TspPlan\obj\Debug\Tsp.csproj.CoreCompileInputs.cache
+D:\Repository\CADStarter\TspPlan\obj\Debug\TspPlan.dll
+D:\Repository\CADStarter\TspPlan\obj\Debug\TspPlan.pdb
+D:\Repository\CADStarter\TspPlan\bin\Debug\05_SplineFunction.dll
+D:\Repository\CADStarter\TspPlan\bin\Debug\Canvas.dll
+D:\Repository\CADStarter\TspPlan\bin\Debug\ContourProgramming.dll
+D:\Repository\CADStarter\TspPlan\bin\Debug\netDxf.dll
+D:\Repository\CADStarter\TspPlan\bin\Debug\Canvas.pdb
+D:\Repository\CADStarter\TspPlan\bin\Debug\Canvas.dll.config
+D:\Repository\CADStarter\TspPlan\bin\Debug\netDxf.pdb
+D:\Repository\CADStarter\TspPlan\bin\Debug\netDxf.xml
+D:\Repository\CADStarter\TspPlan\bin\Debug\ContourProgramming.pdb
+D:\Repository\CADStarter\TspPlan\bin\Debug\05_SplineFunction.pdb

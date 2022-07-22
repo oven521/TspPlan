@@ -45,6 +45,7 @@ namespace MainHMI {
         TxtFileMananger _txtFileMananger;
 
         int ChoiceFlag;
+        public List<PointF> emShapelist = new List<PointF>();
         public MainWin() {
             InitializeComponent();
             //Text = Program.AppName;
@@ -135,7 +136,7 @@ namespace MainHMI {
         }
 
         private void btnImportDxfFile_Click(object sender, EventArgs e) {
-            
+
             openFileDialog1.InitialDirectory = @"..\CADDxfDrawing";
             openFileDialog1.Filter = "DXF文件|*.dxf|所有文件|*.*";
             openFileDialog1.RestoreDirectory = true;
@@ -162,12 +163,12 @@ namespace MainHMI {
             if (openFileDialog1.ShowDialog() == DialogResult.OK) {
                 if (openFileDialog1.FileName != "") {
                     refresh_Click(sender, e);//清除原页面线段
-                    _txtFileMananger.ImportTXTFile(openFileDialog1.FileName, this._drawModel);
+                    _txtFileMananger.ImportTXTFile(openFileDialog1.FileName);
                 }
             }
+            _txtFileMananger.GeneratePolyLine(_drawModel);
             this.canvasMain.DrawAndBackupBufferGraphic();
             this.canvasMain.Invalidate();
-
 
         }
 
@@ -245,59 +246,49 @@ namespace MainHMI {
             this.canvasMain.Invalidate();
         }
 
-        private void TspCombobox_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void TspCombobox_ComboBoxTextChanged(object sender, EventArgs e)
         {
             switch (TspCombobox.SelectedText.ToString())
             {
-                case "贪心": ChoiceFlag = 1; break;
                 case "改良圈": ChoiceFlag = 0; break;
+                case "贪心": ChoiceFlag = 1; break;
                 case "改良圈+贪心": ChoiceFlag = 2; break;
-                case "双生成树":; break;
-                case "最小权匹配":; break;
-                case "凸包":;break;
-
-
+                case "双生成树": ChoiceFlag = 3; break;
+                case "最小权匹配": ChoiceFlag = 4; break;
+                case "凸包": ChoiceFlag = 5; break;
+                case "动态规划": ChoiceFlag = 6; break;
             }
         }
 
-        private void buttonItem2_Click(object sender, EventArgs e)
+        private void TspButton_Click(object sender, EventArgs e)
         {
+            openFileDialog1.InitialDirectory = @"..\CADDxfDrawing";
+            openFileDialog1.Filter = "txt文件|*.txt";
+            openFileDialog1.RestoreDirectory = true;
+            openFileDialog1.FilterIndex = 1;
 
-        }
-
-        private void TSP_ItemClick(object sender, EventArgs e)
-        {
-            string TestFilePath = "";
-            try
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                OpenFileDialog OpenImage = new OpenFileDialog();
-                if (OpenImage.ShowDialog() == DialogResult.OK)
+                if (openFileDialog1.FileName != "")
                 {
-                    TestFilePath = OpenImage.FileName;
+                    refresh_Click(sender, e);//清除原页面线段
+                    _txtFileMananger.ImportTXTFile(openFileDialog1.FileName);
                 }
-                string[] sourcetext = System.IO.File.ReadAllLines(
-                TestFilePath,
-                Encoding.Default);
+            }
+            xPoint stopPt = new xPoint();
+            TspPlan tspPlan = new TspPlan(stopPt, _txtFileMananger.SpotListXPoint);
+            //生成多线段列表并输出
+            _txtFileMananger.SpotListXPoint = tspPlan.GetPt();
+            _txtFileMananger.GeneratePolyLine(_drawModel);
 
-                //Store(sourcetext);
-            }
-            catch
-            {
-                MessageBox.Show("文件打开失败,请选择txt文件");
-            }
-            Stopwatch Swatch = new Stopwatch();
-            Swatch.Start();
-            //TspPlan Plan = new TspPlan(stopPt, emShapelist, ChoiceFlag);
-            Swatch.Stop();
-            Console.WriteLine(Swatch.Elapsed.ToString());
+            this.canvasMain.DrawAndBackupBufferGraphic();
+            this.canvasMain.Invalidate();
 
             //Console.WriteLine($"最短路径为 {Plan.SumDistance()}");
-            //Output(Plan.GetPt());
+            _txtFileMananger.Output(tspPlan.GetPt());
         }
     }
+
+
+
 }

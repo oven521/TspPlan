@@ -9,8 +9,6 @@ D:\Repository\CADStarter\TXTFileMananger\bin\Debug\Canvas.dll
 D:\Repository\CADStarter\TXTFileMananger\bin\Debug\ContourProgramming.dll
 D:\Repository\CADStarter\TXTFileMananger\bin\Debug\netDxf.dll
 D:\Repository\CADStarter\TXTFileMananger\bin\Debug\TestDxfDocument.exe
-D:\Repository\CADStarter\TXTFileMananger\bin\Debug\UnitTestCotour.dll
-D:\Repository\CADStarter\TXTFileMananger\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
 D:\Repository\CADStarter\TXTFileMananger\bin\Debug\Canvas.pdb
 D:\Repository\CADStarter\TXTFileMananger\bin\Debug\Canvas.dll.config
 D:\Repository\CADStarter\TXTFileMananger\bin\Debug\netDxf.pdb
@@ -20,10 +18,10 @@ D:\Repository\CADStarter\TXTFileMananger\bin\Debug\03_DXFMananger.pdb
 D:\Repository\CADStarter\TXTFileMananger\bin\Debug\05_SplineFunction.pdb
 D:\Repository\CADStarter\TXTFileMananger\bin\Debug\TestDxfDocument.pdb
 D:\Repository\CADStarter\TXTFileMananger\bin\Debug\TestDxfDocument.exe.config
-D:\Repository\CADStarter\TXTFileMananger\bin\Debug\UnitTestCotour.pdb
-D:\Repository\CADStarter\TXTFileMananger\bin\Debug\zh-Hans\Microsoft.VisualStudio.QualityTools.UnitTestFramework.resources.dll
 D:\Repository\CADStarter\TXTFileMananger\bin\Debug\TXTMananger.dll.config
 D:\Repository\CADStarter\TXTFileMananger\bin\Debug\TXTMananger.dll
 D:\Repository\CADStarter\TXTFileMananger\bin\Debug\TXTMananger.pdb
 D:\Repository\CADStarter\TXTFileMananger\obj\Debug\TXTMananger.dll
 D:\Repository\CADStarter\TXTFileMananger\obj\Debug\TXTMananger.pdb
+D:\Repository\CADStarter\TXTFileMananger\bin\Debug\TspPlan.dll
+D:\Repository\CADStarter\TXTFileMananger\bin\Debug\TspPlan.pdb

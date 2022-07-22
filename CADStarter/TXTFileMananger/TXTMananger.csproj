@@ -67,14 +67,17 @@
       <Project>{65b33b00-93ce-484a-8023-7a9ba972d4d1}</Project>
       <Name>TestDxfDocument</Name>
     </ProjectReference>
-    <ProjectReference Include="..\UnitTestCotour\UnitTestCotour.csproj">
-      <Project>{f12faff4-d719-4b27-8ce1-7bcb04bf22aa}</Project>
-      <Name>UnitTestCotour</Name>
+    <ProjectReference Include="..\TspPlan\Tsp.csproj">
+      <Project>{54e0aa3e-26d1-42f6-93d3-a691ca8da790}</Project>
+      <Name>Tsp</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

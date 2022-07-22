@@ -39,6 +39,15 @@ namespace MainHMI
             this.styleManager1 = new DevComponents.DotNetBar.StyleManager(this.components);
             this.ribbonControl1 = new DevComponents.DotNetBar.RibbonControl();
             this.ribbonPanel1 = new DevComponents.DotNetBar.RibbonPanel();
+            this.TSP = new DevComponents.DotNetBar.RibbonBar();
+            this.TspCombobox = new DevComponents.DotNetBar.ComboBoxItem();
+            this.贪心加改良圈 = new DevComponents.Editors.ComboItem();
+            this.贪心 = new DevComponents.Editors.ComboItem();
+            this.改良圈 = new DevComponents.Editors.ComboItem();
+            this.凸包 = new DevComponents.Editors.ComboItem();
+            this.双生成树 = new DevComponents.Editors.ComboItem();
+            this.最小权匹配 = new DevComponents.Editors.ComboItem();
+            this.TspButton = new DevComponents.DotNetBar.ButtonItem();
             this.ribbonBar1 = new DevComponents.DotNetBar.RibbonBar();
             this.btnReverse = new DevComponents.DotNetBar.ButtonItem();
             this.btnMergeLineSegs = new DevComponents.DotNetBar.ButtonItem();
@@ -170,15 +179,6 @@ namespace MainHMI
             this.buttonFontUnderline = new DevComponents.DotNetBar.ButtonItem();
             this.buttonItem1 = new DevComponents.DotNetBar.ButtonItem();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.TSP = new DevComponents.DotNetBar.RibbonBar();
-            this.TspCombobox = new DevComponents.DotNetBar.ComboBoxItem();
-            this.贪心加改良圈 = new DevComponents.Editors.ComboItem();
-            this.贪心 = new DevComponents.Editors.ComboItem();
-            this.改良圈 = new DevComponents.Editors.ComboItem();
-            this.凸包 = new DevComponents.Editors.ComboItem();
-            this.双生成树 = new DevComponents.Editors.ComboItem();
-            this.最小权匹配 = new DevComponents.Editors.ComboItem();
-            this.TspButton = new DevComponents.DotNetBar.ButtonItem();
             this.ribbonControl1.SuspendLayout();
             this.ribbonPanel1.SuspendLayout();
             this.ribbonPanel3.SuspendLayout();
@@ -319,6 +319,88 @@ namespace MainHMI
             // 
             this.ribbonPanel1.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.ribbonPanel1.TabIndex = 1;
+            // 
+            // TSP
+            // 
+            this.TSP.AutoOverflowEnabled = true;
+            this.TSP.BackColor = System.Drawing.SystemColors.Control;
+            // 
+            // 
+            // 
+            this.TSP.BackgroundMouseOverStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            // 
+            // 
+            // 
+            this.TSP.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.TSP.ContainerControlProcessDialogKey = true;
+            this.TSP.DragDropSupport = true;
+            this.TSP.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
+            this.TspCombobox,
+            this.TspButton});
+            this.TSP.LayoutOrientation = DevComponents.DotNetBar.eOrientation.Vertical;
+            this.TSP.Location = new System.Drawing.Point(717, 0);
+            this.TSP.Name = "TSP";
+            this.TSP.Size = new System.Drawing.Size(161, 125);
+            this.TSP.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.TSP.TabIndex = 3;
+            this.TSP.Text = "排序方案";
+            // 
+            // 
+            // 
+            this.TSP.TitleStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            // 
+            // 
+            // 
+            this.TSP.TitleStyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            // 
+            // TspCombobox
+            // 
+            this.TspCombobox.BeginGroup = true;
+            this.TspCombobox.ComboWidth = 150;
+            this.TspCombobox.DropDownHeight = 100;
+            this.TspCombobox.DropDownWidth = 200;
+            this.TspCombobox.ItemHeight = 20;
+            this.TspCombobox.Items.AddRange(new object[] {
+            this.贪心加改良圈,
+            this.贪心,
+            this.改良圈,
+            this.凸包,
+            this.双生成树,
+            this.最小权匹配});
+            this.TspCombobox.Name = "TspCombobox";
+            this.TspCombobox.ComboBoxTextChanged += new System.EventHandler(this.TspCombobox_ComboBoxTextChanged);
+            // 
+            // 贪心加改良圈
+            // 
+            this.贪心加改良圈.Text = "贪心加改良圈";
+            // 
+            // 贪心
+            // 
+            this.贪心.Text = "贪心";
+            // 
+            // 改良圈
+            // 
+            this.改良圈.Text = "改良圈";
+            // 
+            // 凸包
+            // 
+            this.凸包.Text = "凸包";
+            // 
+            // 双生成树
+            // 
+            this.双生成树.Text = "双生成树";
+            // 
+            // 最小权匹配
+            // 
+            this.最小权匹配.Text = "最小权匹配";
+            // 
+            // TspButton
+            // 
+            this.TspButton.FontBold = true;
+            this.TspButton.Name = "TspButton";
+            this.TspButton.SubItemsExpandWidth = 14;
+            this.TspButton.Text = "输入文件";
+            this.TspButton.Click += new System.EventHandler(this.TspButton_Click);
             // 
             // ribbonBar1
             // 
@@ -1752,90 +1834,6 @@ namespace MainHMI
             this.buttonItem1.FontBold = true;
             this.buttonItem1.Name = "buttonItem1";
             this.buttonItem1.Text = "选中";
-            // 
-            // TSP
-            // 
-            this.TSP.AutoOverflowEnabled = true;
-            this.TSP.BackColor = System.Drawing.SystemColors.Control;
-            // 
-            // 
-            // 
-            this.TSP.BackgroundMouseOverStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            // 
-            // 
-            // 
-            this.TSP.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.TSP.ContainerControlProcessDialogKey = true;
-            this.TSP.DragDropSupport = true;
-            this.TSP.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
-            this.TspCombobox,
-            this.TspButton});
-            this.TSP.LayoutOrientation = DevComponents.DotNetBar.eOrientation.Vertical;
-            this.TSP.Location = new System.Drawing.Point(717, 0);
-            this.TSP.Name = "TSP";
-            this.TSP.Size = new System.Drawing.Size(229, 125);
-            this.TSP.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.TSP.TabIndex = 3;
-            this.TSP.Text = "排序方案";
-            // 
-            // 
-            // 
-            this.TSP.TitleStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            // 
-            // 
-            // 
-            this.TSP.TitleStyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.TSP.ItemClick += new System.EventHandler(this.TSP_ItemClick);
-            // 
-            // TspCombobox
-            // 
-            this.TspCombobox.BeginGroup = true;
-            this.TspCombobox.ComboWidth = 150;
-            this.TspCombobox.DropDownHeight = 100;
-            this.TspCombobox.DropDownWidth = 200;
-            this.TspCombobox.ItemHeight = 20;
-            this.TspCombobox.Items.AddRange(new object[] {
-            this.贪心加改良圈,
-            this.贪心,
-            this.改良圈,
-            this.凸包,
-            this.双生成树,
-            this.最小权匹配});
-            this.TspCombobox.Name = "TspCombobox";
-            this.TspCombobox.ComboBoxTextChanged += new System.EventHandler(this.TspCombobox_ComboBoxTextChanged);
-            this.TspCombobox.Click += new System.EventHandler(this.TspCombobox_Click);
-            // 
-            // 贪心加改良圈
-            // 
-            this.贪心加改良圈.Text = "贪心加改良圈";
-            // 
-            // 贪心
-            // 
-            this.贪心.Text = "贪心";
-            // 
-            // 改良圈
-            // 
-            this.改良圈.Text = "改良圈";
-            // 
-            // 凸包
-            // 
-            this.凸包.Text = "凸包";
-            // 
-            // 双生成树
-            // 
-            this.双生成树.Text = "双生成树";
-            // 
-            // 最小权匹配
-            // 
-            this.最小权匹配.Text = "最小权匹配";
-            // 
-            // TspButton
-            // 
-            this.TspButton.FontBold = true;
-            this.TspButton.Name = "TspButton";
-            this.TspButton.SubItemsExpandWidth = 14;
-            this.TspButton.Text = "输入文件";
-            this.TspButton.Click += new System.EventHandler(this.buttonItem2_Click);
             // 
             // MainWin
             // 

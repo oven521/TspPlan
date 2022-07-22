@@ -15,13 +15,26 @@ Step 4：回到Step 2，直到所有的点都加入到路径中
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Text;
+using System.Windows.Forms;
+using System.Reflection;
+using CADEngine.DrawingObject;
+using CADEngine.DrawingState;
+using CADEngine;
+using ContourProgramming;
+using System.IO;
+using _05_SplineFunction;
+using System.Diagnostics;
 
 namespace Tsp
 {
     public class xPoint
     {
-        public double XPos;
-        public double YPos;
+        public float XPos;
+        public float YPos;
     }
     //GetPt()获取排序后的点
     public class TspPlan
@@ -34,8 +47,8 @@ namespace Tsp
         //1代表贪心，0代表改良圈，2代表先贪心后改良圈
         public TspPlan(xPoint stopPt, List<xPoint> emShapelist, int ChoiceFlag = 2)
         {
-            PointList = emShapelist;
-
+            PointList = emShapelist;        
+            
             double min = Distance(stopPt.XPos, stopPt.YPos, PointList[0].XPos, PointList[0].YPos);
             int StartPt = 0;//设置起点
             for (int i = 1; i < PointList.Count() - 1; i++)
@@ -74,11 +87,7 @@ namespace Tsp
                 PointList[EndPt] = PointList[PointList.Count() - 1];
                 PointList[PointList.Count() - 1] = temp;
 
-                //试了下将终点设为起点再删除该点的办法，若最优解的终点在起点附近可能可以达到比贪心+改良圈更好的效果，可能适用于闭合图案类型
-                //PointList.Add(PointList[0]);
                 CircleModification();
-                //sumDistance -= Distance(PointList[PointList.Count() - 1].XPos, PointList[PointList.Count() - 1].YPos, PointList[PointList.Count() - 2].XPos, PointList[PointList.Count() - 2].YPos);
-                //PointList.RemoveAt(PointList.Count() - 1);
             }
             else if (ChoiceFlag == 2)//贪心+改良圈，由于贪心本身能达到局部较好解，使得改良圈迭代次数更少，所以可能会出现贪心+改良圈比单贪心运行效率更高的情况
             {

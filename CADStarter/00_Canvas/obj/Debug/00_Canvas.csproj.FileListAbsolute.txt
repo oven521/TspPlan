@@ -43,3 +43,4 @@ D:\Repository\CADStarter\00_Canvas\obj\Debug\00_Canvas.csproj.GenerateResource.c
 D:\Repository\CADStarter\00_Canvas\obj\Debug\00_Canvas.csproj.CoreCompileInputs.cache
 D:\Repository\CADStarter\00_Canvas\obj\Debug\Canvas.dll
 D:\Repository\CADStarter\00_Canvas\obj\Debug\Canvas.pdb
+D:\Repository\CADStarter\00_Canvas\obj\Debug\00_Canvas.csproj.CopyComplete
