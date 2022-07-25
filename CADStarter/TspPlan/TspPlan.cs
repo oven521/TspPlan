@@ -118,10 +118,11 @@ namespace Tsp
                 sumDistance += Distance(PointList[i].XPos, PointList[i].YPos, PointList[i + 1].XPos, PointList[i + 1].YPos);
             }
         }
+
+        #region 改良圈
         /// <summary>
         /// 改良圈算法
         /// </summary>
-        #region 改良圈
         //颠倒路径中的顺序
         private void Reverse(int begin, int end)
         {
@@ -169,10 +170,10 @@ namespace Tsp
             //Console.WriteLine(testcircle);
         }
         #endregion
+        #region 最近邻算法（贪心）
         /// <summary>
         /// 最近邻算法（贪心）
         /// </summary>
-       #region 最近邻算法（贪心）
         private void NearestNeighbor()
         {
             int testcircle = 0;//循环次数
@@ -199,6 +200,10 @@ namespace Tsp
             CalculateSumDistance();
         }
         #endregion
+        #region 凸包算法
+        /// <summary>
+        /// 凸包算法
+        /// </summary>
         //凸包算法
         // 时间复杂度：O(n^2*lg(n))
         //Step 1：构造凸包，并将它作为最初的子路径
@@ -209,6 +214,47 @@ namespace Tsp
 
         // Step 4：回到Step 2，直到所有的点都加入到路径中
 
+        private float isLeft(xPoint P0, xPoint P1, xPoint P2)
+        {
+            return (P1.XPos - P0.XPos) * (P2.YPos - P0.YPos) - (P2.XPos - P0.XPos) * (P1.YPos - P0.YPos);
+        }
+        int simpleHull_2D(List<xPoint> P, int n, List<xPoint> H)
+        {
+            List<xPoint> D = new List<xPoint>();
+            int bot = n - 2, top = bot + 3; 
+            D[bot] = D[top] = P[2];
+            if (isLeft(P[0], P[1], P[2]) > 0)
+            {
+                D[bot + 1] = P[0];
+                D[bot + 2] = P[1];
+            }
+            else
+            {
+                D[bot + 1] = P[1];
+                D[bot + 2] = P[0];
+            }
+            for (int i = 3; i < n; i++)
+            { 
+                if ((isLeft(D[bot], D[bot + 1], P[i]) > 0) &&
+                    (isLeft(D[top - 1], D[top], P[i]) > 0))
+                    continue;  
+                while (isLeft(D[bot], D[bot + 1], P[i]) <= 0)
+                    ++bot;
+                D[--bot] = P[i]; 
+                while (isLeft(D[top - 1], D[top], P[i]) <= 0)
+                    --top;
+                D[++top] = P[i]; 
+            }
+
+            int h;
+            for (h = 0; h <= (top - bot); h++)
+                H[h] = D[bot + h];
+
+            //delete D;
+            return h - 1;
+        }
+
+        #endregion
         //双生成树
         private void CaculateDistanceMap()
         {
