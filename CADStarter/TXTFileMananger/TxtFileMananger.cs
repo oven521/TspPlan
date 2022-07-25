@@ -16,7 +16,7 @@ namespace TXTMananger
     {
         string _strTXTFilePath;
         DrawModel _model;
-        float Offset=10;//将所有坐标乘上一个系数，防止点过于密集，方便观察
+        float Offset=1;//将所有坐标乘上一个系数，防止点过于密集，方便观察
         //存储点坐标
         public List<PointF> SpotList = new List<PointF>();
 

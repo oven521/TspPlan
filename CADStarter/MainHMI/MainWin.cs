@@ -248,11 +248,11 @@ namespace MainHMI {
 
         private void TspCombobox_ComboBoxTextChanged(object sender, EventArgs e)
         {
-            switch (TspCombobox.SelectedText.ToString())
+            switch (TspCombobox.SelectedItem.ToString())
             {
                 case "改良圈": ChoiceFlag = 0; break;
                 case "贪心": ChoiceFlag = 1; break;
-                case "改良圈+贪心": ChoiceFlag = 2; break;
+                case "贪心加改良圈": ChoiceFlag = 2; break;
                 case "双生成树": ChoiceFlag = 3; break;
                 case "最小权匹配": ChoiceFlag = 4; break;
                 case "凸包": ChoiceFlag = 5; break;
@@ -276,16 +276,16 @@ namespace MainHMI {
                 }
             }
             xPoint stopPt = new xPoint();
-            TspPlan tspPlan = new TspPlan(stopPt, _txtFileMananger.SpotListXPoint);
+            TspPlan tspPlan = new TspPlan(stopPt, _txtFileMananger.SpotListXPoint,ChoiceFlag);
             //生成多线段列表并输出
-            _txtFileMananger.SpotListXPoint = tspPlan.GetPt();
+            //_txtFileMananger.SpotListXPoint = tspPlan.GetPt();
             _txtFileMananger.GeneratePolyLine(_drawModel);
-
+            
             this.canvasMain.DrawAndBackupBufferGraphic();
             this.canvasMain.Invalidate();
 
             //Console.WriteLine($"最短路径为 {Plan.SumDistance()}");
-            _txtFileMananger.Output(tspPlan.GetPt());
+            _txtFileMananger.Output(_txtFileMananger.SpotListXPoint);
         }
     }
 

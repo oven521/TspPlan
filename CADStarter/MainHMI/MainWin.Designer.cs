@@ -368,7 +368,7 @@ namespace MainHMI
             this.双生成树,
             this.最小权匹配});
             this.TspCombobox.Name = "TspCombobox";
-            this.TspCombobox.ComboBoxTextChanged += new System.EventHandler(this.TspCombobox_ComboBoxTextChanged);
+            this.TspCombobox.SelectedIndexChanged += new System.EventHandler(this.TspCombobox_ComboBoxTextChanged);
             // 
             // 贪心加改良圈
             // 
@@ -1501,9 +1501,9 @@ namespace MainHMI
             this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tslLogicalPoint,
             this.toolStripLabel2});
-            this.toolStrip2.Location = new System.Drawing.Point(0, 841);
+            this.toolStrip2.Location = new System.Drawing.Point(0, 835);
             this.toolStrip2.Name = "toolStrip2";
-            this.toolStrip2.Size = new System.Drawing.Size(1443, 25);
+            this.toolStrip2.Size = new System.Drawing.Size(1443, 31);
             this.toolStrip2.TabIndex = 6;
             this.toolStrip2.Text = "toolStrip2";
             // 
