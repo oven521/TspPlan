@@ -50,7 +50,7 @@ namespace tsp
             Console.WriteLine(Swatch.Elapsed.ToString());
 
             Console.WriteLine($"最短路径为 {Plan.SumDistance()}");
-            Output(Plan.GetPt());
+            Output(emShapelist);
         }
 
         //将读入的文件存入数组,根据文件格式可能需要改变
@@ -64,8 +64,8 @@ namespace tsp
                     xPoint point = new xPoint();
                     //判断读入数据为横坐标或纵坐标
                     string[] temp = num.Split(' ');
-                    point.XPos = double.Parse(temp[0]);
-                    point.YPos = double.Parse(temp[1]);
+                    point.XPos = float.Parse(temp[0]);
+                    point.YPos = float.Parse(temp[1]);
                     emShapelist.Add(point);
                 }
             }
