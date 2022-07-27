@@ -30,7 +30,7 @@ Step 4：回到Step 2，直到所有的点都加入到路径中
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
+using System.IO;
 
 namespace Tsp
 {
@@ -50,6 +50,10 @@ namespace Tsp
             StartPoint.YPos = a.YPos;
         }
     }
+
+    public class Tubaoptlist
+    { }
+
 
     public class TspPlan
     {
@@ -80,11 +84,11 @@ namespace Tsp
         {
             List<EMShape> PointList = emShapelist2;
 
-            double min = Distance(stopPt.XPos, stopPt.YPos, PointList[0].StartPoint.XPos, PointList[0].StartPoint.YPos);
+            double min = Distance(stopPt, PointList[0].StartPoint);
             int StartPt = 0;//设置起点
             for (int i = 1; i < PointList.Count() - 1; i++)
             {
-                double cur = Distance(stopPt.XPos, stopPt.YPos, PointList[i].StartPoint.XPos, PointList[i].StartPoint.YPos);
+                double cur = Distance(stopPt, PointList[i].StartPoint);
                 if (min > cur)
                 {
                     min = cur;
@@ -107,7 +111,7 @@ namespace Tsp
                 int EndPt = 0;//设置终点
                 for (int i = 1; i < PointList.Count() - 1; i++)
                 {
-                    double cur = Distance(stopPt.XPos, stopPt.YPos, PointList[i].StartPoint.XPos, PointList[i].StartPoint.YPos);
+                    double cur = Distance(stopPt, PointList[i].StartPoint);
                     if (max < cur)
                     {
                         max = cur;
@@ -129,7 +133,7 @@ namespace Tsp
             {
                 Graham(PointList);
             }
-            
+
         }
 
         private void SwapPt(List<EMShape> PointList, int sp, int ep)
@@ -139,9 +143,9 @@ namespace Tsp
             PointList[ep] = temp;
         }
 
-        private double Distance(double source_x, double source_y, double target_x, double target_y)
+        private double Distance(xPoint a, xPoint b)
         {
-            return Math.Sqrt(Math.Pow(source_x - target_x, 2) + Math.Pow(source_y - target_y, 2));
+            return Math.Sqrt(Math.Pow(a.XPos - b.XPos, 2) + Math.Pow(a.YPos - b.YPos, 2));
         }
 
         ////public List<xPoint> GetPt() => PointList;
@@ -153,7 +157,7 @@ namespace Tsp
             sumDistance = 0;
             for (int i = 0; i < PointList.Count() - 1; i++)
             {
-                sumDistance += Distance(PointList[i].StartPoint.XPos, PointList[i].StartPoint.YPos, PointList[i + 1].StartPoint.XPos, PointList[i + 1].StartPoint.YPos);
+                sumDistance += Distance(PointList[i].StartPoint, PointList[i + 1].StartPoint);
             }
         }
         //颠倒路径中的顺序
@@ -186,8 +190,8 @@ namespace Tsp
                     {
                         CycleIndex++;
                         //比较颠倒顺序前后的总路线长
-                        double Newpath = Distance(PointList[i].StartPoint.XPos, PointList[i].StartPoint.YPos, PointList[j].StartPoint.XPos, PointList[j].StartPoint.YPos) + Distance(PointList[i + 1].StartPoint.XPos, PointList[i + 1].StartPoint.YPos, PointList[j + 1].StartPoint.XPos, PointList[j + 1].StartPoint.YPos);
-                        double Oldpath = Distance(PointList[i].StartPoint.XPos, PointList[i].StartPoint.YPos, PointList[i + 1].StartPoint.XPos, PointList[i + 1].StartPoint.YPos) + Distance(PointList[j].StartPoint.XPos, PointList[j].StartPoint.YPos, PointList[j + 1].StartPoint.XPos, PointList[j + 1].StartPoint.YPos);
+                        double Newpath = Distance(PointList[i].StartPoint, PointList[j].StartPoint) + Distance(PointList[i + 1].StartPoint, PointList[j + 1].StartPoint);
+                        double Oldpath = Distance(PointList[i].StartPoint, PointList[i + 1].StartPoint) + Distance(PointList[j].StartPoint, PointList[j + 1].StartPoint);
                         if (Newpath < Oldpath)
                         {
                             StopFlag++;
@@ -216,16 +220,16 @@ namespace Tsp
             int testcircle = 0;//循环次数
             for (int i = 0; i < PointList.Count() - 1; i++)
             {
-                double min = Distance(PointList[i].StartPoint.XPos, PointList[i].StartPoint.YPos, PointList[i + 1].StartPoint.XPos, PointList[i + 1].StartPoint.YPos);
+                double min = Distance(PointList[i].StartPoint, PointList[i + 1].StartPoint);
                 int NearestPoint = i + 1;
                 //遍历list获取当前点的最近点
                 for (int j = i + 1; j < PointList.Count(); j++)
                 {
                     testcircle++;
-                    if (Distance(PointList[i].StartPoint.XPos, PointList[i].StartPoint.YPos, PointList[j].StartPoint.XPos, PointList[j].StartPoint.YPos) < min)
+                    if (Distance(PointList[i].StartPoint, PointList[j].StartPoint) < min)
                     {
                         NearestPoint = j;
-                        min = Distance(PointList[i].StartPoint.XPos, PointList[i].StartPoint.YPos, PointList[j].StartPoint.XPos, PointList[j].StartPoint.YPos);
+                        min = Distance(PointList[i].StartPoint, PointList[j].StartPoint);
                     }
                 }
                 //交换x，y坐标
@@ -251,46 +255,127 @@ namespace Tsp
         private void Graham(List<EMShape> PointList)
         {
             List<EMShape> TubaoList = new List<EMShape>();
-            int Start = 0;
-            for (int i= 1;i< PointList.Count;i++)
+            List<EMShape> InternalPtList = new List<EMShape>();
+            //寻找初始点作为原点
+            int Initial = 0;
+            for (int i = 1; i < PointList.Count; i++)
             {
-                if(PointList[i].StartPoint.YPos < PointList[Start].StartPoint.YPos|| 
-                    (PointList[i].StartPoint.YPos == PointList[Start].StartPoint.YPos && PointList[i].StartPoint.XPos < PointList[Start].StartPoint.XPos))
+                if (PointList[i].StartPoint.YPos < PointList[Initial].StartPoint.YPos ||
+                    (PointList[i].StartPoint.YPos == PointList[Initial].StartPoint.YPos && PointList[i].StartPoint.XPos < PointList[Initial].StartPoint.XPos))
                 {
-                    Start = i;
+                    Initial = i;
                 }
             }
-            SwapPt(PointList, Start, 0);
-            EMShape StartPt = PointList[0];//凸包初始点
+            EMShape InitialPt = new EMShape(PointList[Initial].StartPoint);//凸包初始点
 
-            //坐标偏移
-            foreach(EMShape Point in PointList)
-            {
-                Point.StartPoint.XPos -= StartPt.StartPoint.XPos;
-                Point.StartPoint.YPos -= StartPt.StartPoint.YPos;
-            }
-
+            //for (int a = 0; a < PointList.Count; a++) Console.WriteLine("{0},{1}", PointList[a].StartPoint.XPos, PointList[a].StartPoint.YPos);
+            //Console.WriteLine("------------");
             //排序
-            PointList.OrderBy(Point => Point.StartPoint.YPos/ Point.StartPoint.XPos).ToList();
-            //构建初始凸包
-            int top = PointList.Count - 1;
+            List<EMShape> templist = PointList.OrderBy(Point => Math.Acos((Point.StartPoint.XPos - InitialPt.StartPoint.XPos) /
+                Math.Sqrt(Math.Pow(Point.StartPoint.XPos - InitialPt.StartPoint.XPos, 2) + Math.Pow(Point.StartPoint.YPos - InitialPt.StartPoint.YPos, 2))))
+                .ThenBy(Point => Point.StartPoint.XPos).ToList();
 
 
-        }
-        private void tubao(List<EMShape> TubaoList, List<EMShape> PointList)
-        {
-            int Count = PointList.Count - TubaoList.Count;
-            for (int i=0;i< Count; i++)
+            //构建初始凸包:栈方法实现
+            TubaoList.Add(templist[0]);
+            TubaoList.Add(templist[1]);
+            int TubaoTop = 1;
+            int templistPt = 2;
+            while (templistPt < templist.Count)
             {
-                for(int j=0;j< PointList.Count;j++)
+                if (IsLeft(TubaoList[TubaoTop - 1].StartPoint, TubaoList[TubaoTop].StartPoint, templist[templistPt].StartPoint))
                 {
-                    for(int k=0;k<TubaoList.Count;k++)
-                    {
+                    TubaoList.Add(templist[templistPt]);
+                    TubaoTop++;
+                    templistPt++;
+                }
+                else
+                {
+                    InternalPtList.Add(TubaoList[TubaoTop]);
+                    TubaoList.RemoveAt(TubaoTop);
 
+                    TubaoTop--;
+                }
+            }
+            for (int a = 0; a < TubaoList.Count; a++) Console.WriteLine("{0},{1}", TubaoList[a].StartPoint.XPos, TubaoList[a].StartPoint.YPos);
+            Console.WriteLine("------------");
+            //最后赋回
+
+            tubao(TubaoList, InternalPtList);
+            PointList.Clear();
+            TubaoList.ForEach(a => PointList.Add(a));
+        }
+        //判断ab相对bc是不是左转,大于0则左转,等于0则在同一直线上
+        private bool IsLeft(xPoint a, xPoint b, xPoint c)
+        {
+            return (b.XPos - a.XPos) * (c.YPos - b.YPos) - (b.YPos - a.YPos) * (c.XPos - b.XPos) >= 0;
+        }
+
+        //Step 2：对于所有不在子路径中的点r，找到其相应的在子路径中的点i，j，使得Distance[i][r]+Distance[r][j]-Distance[i][j] 最小
+
+        //Step 3：对于Step 2中找到的所有（i，j，0r），找到使（Distance[i][r]+Distance[r][j]）/Distance[i][j] 最小的那一组，将这组的r插入到i和j中间
+        //插入其余点
+        private void tubao(List<EMShape> TubaoList, List<EMShape> InternalPtList)
+        {
+            int[] MinDistancePt = new int[InternalPtList.Count];
+            //初始距离表
+            for (int i = 0; i < InternalPtList.Count; i++)
+            {
+                double MinDistance = Distance(InternalPtList[i].StartPoint, TubaoList[0].StartPoint) + Distance(InternalPtList[i].StartPoint, TubaoList[1].StartPoint)
+                    - Distance(TubaoList[0].StartPoint, TubaoList[1].StartPoint);
+                for (int j = 1; j < TubaoList.Count - 1; j++)
+                {
+                    double CurDistance = Distance(InternalPtList[i].StartPoint, TubaoList[j].StartPoint) + Distance(InternalPtList[i].StartPoint, TubaoList[j + 1].StartPoint)
+                    - Distance(TubaoList[j].StartPoint, TubaoList[j + 1].StartPoint);
+                    if (MinDistance > CurDistance)
+                    {
+                        MinDistance = CurDistance;
+                        MinDistancePt[i] = j;
                     }
                 }
             }
+            //插入点集
+            for (int i = 0; i < InternalPtList.Count; i++)
+            {
+                int InsertPt = 0;
+                double MinCurDistanceProportion = 0;
+                bool[] InternalPtFlag = new bool[InternalPtList.Count];
+                for (int j = 0; j < InternalPtList.Count; j++)
+                {
+                    double CurDistanceProportion = Distance(InternalPtList[j].StartPoint, TubaoList[MinDistancePt[j]].StartPoint) + Distance(InternalPtList[j].StartPoint, TubaoList[MinDistancePt[j] + 1].StartPoint)
+                    / Distance(TubaoList[MinDistancePt[j]].StartPoint, TubaoList[MinDistancePt[j] + 1].StartPoint);
+                    if ((MinCurDistanceProportion > CurDistanceProportion && !InternalPtFlag[j]) || MinCurDistanceProportion == 0)
+                    {
+                        InsertPt = j;
+                        MinCurDistanceProportion = CurDistanceProportion;
+                    }
+                }
+                TubaoList.Insert(MinDistancePt[InsertPt] + 1, InternalPtList[InsertPt]);
+                InternalPtFlag[InsertPt] = true;
+                //插入后TubaoList索引改变，MinDistancePt内的值加一
+                for (int k = 0; k < InternalPtList.Count; k++)
+                {
+                    if (MinDistancePt[k] > MinDistancePt[InsertPt]) MinDistancePt[k]++;
+    //                double MinDistance = Distance(InternalPtList[i].StartPoint, TubaoList[0].StartPoint) + Distance(InternalPtList[i].StartPoint, TubaoList[1].StartPoint)
+    //- Distance(TubaoList[0].StartPoint, TubaoList[1].StartPoint);
+    //                for (int j = 1; j < 2; j++)
+    //                {
+    //                    double CurDistance = Distance(InternalPtList[i].StartPoint, TubaoList[j].StartPoint) + Distance(InternalPtList[i].StartPoint, TubaoList[j + 1].StartPoint)
+    //                    - Distance(TubaoList[j].StartPoint, TubaoList[j + 1].StartPoint);
+    //                    if (MinDistance > CurDistance)
+    //                    {
+    //                        MinDistance = CurDistance;
+    //                        MinDistancePt[i] = j;
+    //                    }
+    //                }
 
+                }
+            }
+            //test
+            for (int i = 0; i < TubaoList.Count; i++)
+            {
+                Console.WriteLine("{0},{1}",TubaoList[i].StartPoint.XPos,TubaoList[i].StartPoint.YPos);
+            }
         }
 
 
