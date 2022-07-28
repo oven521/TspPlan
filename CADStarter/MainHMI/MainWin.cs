@@ -280,8 +280,8 @@ namespace MainHMI {
             Swatch.Start();
             TspPlan tspPlan = new TspPlan(stopPt, _txtFileMananger.SpotListXPoint, ChoiceFlag);
             Swatch.Stop();
-            Console.WriteLine(Swatch.Elapsed.ToString());
-
+            this.rtxtDrawCmd.Text += "总长度" + tspPlan.SumDistance() + "\n";
+            this.rtxtDrawCmd.Text += "运行时间" + Swatch.Elapsed.ToString() + "\n";
             //生成多线段列表并输出
             //_txtFileMananger.SpotListXPoint = tspPlan.GetPt();
             _txtFileMananger.GeneratePolyLine(_drawModel);

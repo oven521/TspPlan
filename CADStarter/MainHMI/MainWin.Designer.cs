@@ -1501,9 +1501,9 @@ namespace MainHMI
             this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tslLogicalPoint,
             this.toolStripLabel2});
-            this.toolStrip2.Location = new System.Drawing.Point(0, 835);
+            this.toolStrip2.Location = new System.Drawing.Point(0, 841);
             this.toolStrip2.Name = "toolStrip2";
-            this.toolStrip2.Size = new System.Drawing.Size(1443, 31);
+            this.toolStrip2.Size = new System.Drawing.Size(1443, 25);
             this.toolStrip2.TabIndex = 6;
             this.toolStrip2.Text = "toolStrip2";
             // 
