@@ -276,7 +276,12 @@ namespace MainHMI {
                 }
             }
             xPoint stopPt = new xPoint();
-            TspPlan tspPlan = new TspPlan(stopPt, _txtFileMananger.SpotListXPoint,ChoiceFlag);
+            Stopwatch Swatch = new Stopwatch();
+            Swatch.Start();
+            TspPlan tspPlan = new TspPlan(stopPt, _txtFileMananger.SpotListXPoint, ChoiceFlag);
+            Swatch.Stop();
+            Console.WriteLine(Swatch.Elapsed.ToString());
+
             //生成多线段列表并输出
             //_txtFileMananger.SpotListXPoint = tspPlan.GetPt();
             _txtFileMananger.GeneratePolyLine(_drawModel);
