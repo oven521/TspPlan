@@ -40,6 +40,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ExampleGeneration.cs" />
     <Compile Include="TxtFileMananger.cs" />
   </ItemGroup>
   <ItemGroup>

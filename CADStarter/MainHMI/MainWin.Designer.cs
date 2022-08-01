@@ -179,6 +179,7 @@ namespace MainHMI
             this.buttonFontUnderline = new DevComponents.DotNetBar.ButtonItem();
             this.buttonItem1 = new DevComponents.DotNetBar.ButtonItem();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.buttonItem2 = new DevComponents.DotNetBar.ButtonItem();
             this.ribbonControl1.SuspendLayout();
             this.ribbonPanel1.SuspendLayout();
             this.ribbonPanel3.SuspendLayout();
@@ -336,7 +337,8 @@ namespace MainHMI
             this.TSP.DragDropSupport = true;
             this.TSP.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.TspCombobox,
-            this.TspButton});
+            this.TspButton,
+            this.buttonItem2});
             this.TSP.LayoutOrientation = DevComponents.DotNetBar.eOrientation.Vertical;
             this.TSP.Location = new System.Drawing.Point(717, 0);
             this.TSP.Name = "TSP";
@@ -1835,6 +1837,13 @@ namespace MainHMI
             this.buttonItem1.Name = "buttonItem1";
             this.buttonItem1.Text = "选中";
             // 
+            // buttonItem2
+            // 
+            this.buttonItem2.Name = "buttonItem2";
+            this.buttonItem2.SubItemsExpandWidth = 14;
+            this.buttonItem2.Text = "example";
+            this.buttonItem2.Click += new System.EventHandler(this.buttonItem2_Click);
+            // 
             // MainWin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -2021,5 +2030,6 @@ namespace MainHMI
         private DevComponents.Editors.ComboItem 双生成树;
         private DevComponents.Editors.ComboItem 最小权匹配;
         private DevComponents.DotNetBar.ButtonItem TspButton;
+        private DevComponents.DotNetBar.ButtonItem buttonItem2;
     }
 }

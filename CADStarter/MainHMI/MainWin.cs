@@ -164,11 +164,12 @@ namespace MainHMI {
                 if (openFileDialog1.FileName != "") {
                     refresh_Click(sender, e);//清除原页面线段
                     _txtFileMananger.ImportTXTFile(openFileDialog1.FileName);
+                    _txtFileMananger.GeneratePolyLine(_drawModel);
+                    this.canvasMain.DrawAndBackupBufferGraphic();
+                    this.canvasMain.Invalidate();
                 }
             }
-            _txtFileMananger.GeneratePolyLine(_drawModel);
-            this.canvasMain.DrawAndBackupBufferGraphic();
-            this.canvasMain.Invalidate();
+
 
         }
 
@@ -280,7 +281,7 @@ namespace MainHMI {
             Swatch.Start();
             TspPlan tspPlan = new TspPlan(stopPt, _txtFileMananger.SpotListXPoint, ChoiceFlag);
             Swatch.Stop();
-            this.rtxtDrawCmd.Text += "总长度" + tspPlan.SumDistance() + "\n";
+            this.rtxtDrawCmd.Text += TspCombobox.SelectedItem.ToString()+" ：总长度" + tspPlan.SumDistance() + "\n";
             this.rtxtDrawCmd.Text += "运行时间" + Swatch.Elapsed.ToString() + "\n";
             //生成多线段列表并输出
             //_txtFileMananger.SpotListXPoint = tspPlan.GetPt();
@@ -291,6 +292,11 @@ namespace MainHMI {
 
             //Console.WriteLine($"最短路径为 {Plan.SumDistance()}");
             _txtFileMananger.Output(_txtFileMananger.SpotListXPoint);
+        }
+
+        private void buttonItem2_Click(object sender, EventArgs e)
+        {
+            ExampleGeneration a = new TXTMananger.ExampleGeneration();
         }
     }
 

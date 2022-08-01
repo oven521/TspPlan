@@ -2,21 +2,11 @@
 Tsp多项式时间算法（局部解）
 改良圈+贪心：贪心寻找较好解，再用改良圈优化
 改良圈：手动设置终点为起点的最远点
-凸包：正在实现
+动态规划：正在实现
 
 后续考虑算法
 生成树：结果范围<2OPT， 时间复杂度O（n^2）
 最小权匹配：结果范围<1.5OPT， 时间复杂度O（n^3）
-
-目前正在写的算法：凸包算法
-考虑到观感性，凸包算法理论上不会产生交叉
-    时间复杂度：O(n^2*lg(n))
-Step 1：构造凸包，并将它作为最初的子路径
-Step 2：对于所有不在子路径中的点r，找到其相应的在子路径中的点i，j，使得Distance[i][r]+Distance[r][j]-Distance[i][j] 最小
-Step 3：对于Step 2中找到的所有（i，j，0r），找到使（Distance[i][r]+Distance[r][j]）/Distance[i][j] 最小的那一组，将这组的r插入到i和j中间
-Step 4：回到Step 2，直到所有的点都加入到路径中
-
-
 
 改良圈: ChoiceFlag = 0
 贪心: ChoiceFlag = 1
@@ -135,7 +125,8 @@ namespace Tsp
             {
 
                 Graham(PointList);
-                
+                //删除终点，解除回路
+                PointList.RemoveAt(PointList.Count - 1);
             }
             
             CalculateSumDistance(PointList);//计算总长度
@@ -306,9 +297,7 @@ namespace Tsp
                 }
             }
             TubaoList.Add(TubaoList[0]);
-            //for (int a = 0; a < TubaoList.Count; a++) Console.WriteLine("{0},{1}", TubaoList[a].StartPoint.XPos, TubaoList[a].StartPoint.YPos);
-            //Console.WriteLine("------------");
-            
+
             tubao(TubaoList, InternalPtList);
 
             //最后赋回
@@ -408,8 +397,6 @@ namespace Tsp
                 }
                 //InternalPtList.RemoveAt(InsertPt);
             }
-            //删除终点，解除回路
-            TubaoList.RemoveAt(TubaoList.Count - 1);
         }
 
 
