@@ -11,7 +11,7 @@ Tsp多项式时间算法（局部解）
 改良圈: ChoiceFlag = 0
 贪心: ChoiceFlag = 1
 改良圈+贪心: ChoiceFlag = 2
-双生成树: ChoiceFlag = 3
+最小代价插入: ChoiceFlag = 3
 最小权匹配: ChoiceFlag = 4
 凸包: ChoiceFlag = 5
 动态规划: ChoiceFlag = 6
@@ -60,19 +60,19 @@ namespace Tsp
         {
 
         }
-        public TspPlan(xPoint stopPt, List<xPoint> emShapelist1, int ChoiceFlag = 2)
+        public TspPlan(xPoint stopPt, List<xPoint> emShapelist1, int ChoiceFlag = 2, xPoint endPt=null)
         {
             List<EMShape> emShapelist2 = new List<EMShape>();
             emShapelist1.ForEach(A =>
             {
                 emShapelist2.Add(new EMShape(A));
             });
-            TspSort(stopPt, emShapelist2, ChoiceFlag);
+            TspSort(stopPt, emShapelist2, ChoiceFlag, endPt);
             emShapelist1.Clear();
             emShapelist2.ForEach(a => emShapelist1.Add(a.StartPoint));
         }
         //1代表贪心，0代表改良圈，2代表先贪心后改良圈
-        internal void TspSort(xPoint stopPt, List<EMShape> emShapelist2, int ChoiceFlag = 2)
+        internal void TspSort(xPoint stopPt, List<EMShape> emShapelist2, int ChoiceFlag = 2, xPoint endP = null)
         {
             List<EMShape> PointList = emShapelist2;
 
@@ -101,19 +101,32 @@ namespace Tsp
             {
                 double max = 0;
                 int EndPt = 0;//设置终点
-                for (int i = 1; i < PointList.Count() - 1; i++)
+                if(endP!=null)
                 {
-                    double cur = Distance(stopPt, PointList[i].StartPoint);
-                    if (max < cur)
+                    //max=PointList.Last().StartPoint.
+                }
+                else
+                {
+                    for (int i = 1; i < PointList.Count() - 1; i++)
                     {
-                        max = cur;
-                        EndPt = i;
+                        double cur = Distance(stopPt, PointList[i].StartPoint);
+                        if (max < cur)
+                        {
+                            max = cur;
+                            EndPt = i;
+                        }
                     }
                 }
-                temp = PointList[EndPt];
-                PointList[EndPt] = PointList[PointList.Count() - 1];
-                PointList[PointList.Count() - 1] = temp;
-
+                if(EndPt!=0)
+                {
+                    temp = PointList[EndPt];
+                    PointList[EndPt] = PointList[PointList.Count() - 1];
+                    PointList[PointList.Count() - 1] = temp;
+                }
+                if(endP==null)
+                {
+                    NearestNeighbor(PointList);
+                }
                 CircleModification(PointList);
             }
             else if (ChoiceFlag == 2)//贪心+改良圈，由于贪心本身能达到局部较好解，使得改良圈迭代次数更少，所以可能会出现贪心+改良圈比单贪心运行效率更高的情况
@@ -128,10 +141,40 @@ namespace Tsp
                 //删除终点，解除回路
                 PointList.RemoveAt(PointList.Count - 1);
             }
-            
+            else if (ChoiceFlag == 6)
+            {
+                Dynamic(PointList);
+            }
+            else if(ChoiceFlag == 3)
+            {
+                double max = 0;
+                int EndPt = 0;//设置终点
+                if (endP != null)
+                {
+                    //max=PointList.Last().StartPoint.
+                }
+                else
+                {
+                    for (int i = 1; i < PointList.Count() - 1; i++)
+                    {
+                        double cur = Distance(stopPt, PointList[i].StartPoint);
+                        if (max < cur)
+                        {
+                            max = cur;
+                            EndPt = i;
+                        }
+                    }
+                }
+                if (EndPt != 0)
+                {
+                    temp = PointList[EndPt];
+                    PointList[EndPt] = PointList[PointList.Count() - 1];
+                    PointList[PointList.Count() - 1] = temp;
+                }
+                expansion(PointList);
+            }
             CalculateSumDistance(PointList);//计算总长度
-            //Console.WriteLine(sumDistance);
-
+                                            //Console.WriteLine(sumDistance);
         }
 
         private void SwapPt(List<EMShape> PointList, int sp, int ep)
@@ -252,6 +295,7 @@ namespace Tsp
         {
             List<EMShape> TubaoList = new List<EMShape>();
             List<TubaoInternalPt> InternalPtList = new List<TubaoInternalPt>();
+            TubaoInternalPt tubaoInternalPt = new TubaoInternalPt();
             //寻找初始点作为原点
             int Initial = 0;
             for (int i = 1; i < PointList.Count; i++)
@@ -288,7 +332,6 @@ namespace Tsp
                 else
                 {
                     //删除凸包上的点并将其加入内部点集
-                    TubaoInternalPt tubaoInternalPt = new TubaoInternalPt();
                     tubaoInternalPt.InternalPt = TubaoList[TubaoTop];
                     InternalPtList.Add(tubaoInternalPt);
                     TubaoList.RemoveAt(TubaoTop);
@@ -357,9 +400,11 @@ namespace Tsp
                     }
                 }
                 TubaoList.Insert(InternalPtList[InsertPt].TubaoPtIndex + 1, InternalPtList[InsertPt].InternalPt);
+#if DEBUG
                 //Console.WriteLine("插入{0},{1}", InternalPtList[InsertPt].InternalPt.StartPoint.XPos, InternalPtList[InsertPt].InternalPt.StartPoint.YPos);
                 //for (int a = 0; a < TubaoList.Count; a++) Console.WriteLine("{0},{1}", TubaoList[a].StartPoint.XPos, TubaoList[a].StartPoint.YPos);
                 //Console.WriteLine("------------");
+#endif
                 InternalPtList[InsertPt].InsertFlag = true;
                 if (i == InternalPtList.Count - 1) break;
                 //插入后TubaoList索引改变，MinDistancePt内的值加一,更新路径值
@@ -401,10 +446,145 @@ namespace Tsp
 
 
         #endregion
-        //双生成树
-        private void CaculateDistanceMap()
+        #region 动态规划
+        private void Dynamic(List<EMShape> PointList)
         {
-
+            //List<List<double>> DistanceMap = new List<List<double>>();
+            CaculateDistanceMap(PointList);//计算距离矩阵
+            int n = PointList.Count;
+            double[,] dp = new double[PointList.Count, PointList.Count];
+            for (int i = 0; i < (1 << n); i++) //状态的个数，从n个0到n个1 
+                for (int j = 1; j <= n; j++)
+                {
+                    if ((i & (1 << (j - 1)))!=0) //必须是访问过的点j才可以，访问过的才知道最优子结构
+                    {
+                        for (int k = 1; k <= n; k++)
+                            if ((i & (1 << (k - 1))) != 0) //必须是访问过的k点且边存在
+                                dp[i,j] = Math.Min(dp[i ^ (1 << (j - 1)),k] + DistanceMap[k][j], dp[i,j]);
+                    }
+                }  
         }
+        private void CaculateDistanceMap(List<EMShape> PointList)
+        {
+            for(int i=0;i< PointList.Count;i++)
+            {
+                for(int j=i+1;j<PointList.Count;j++)
+                {
+                    DistanceMap[i][j] = Distance(PointList[i].StartPoint,PointList[j].StartPoint);
+                }
+            }
+        }
+
+
+        #endregion
+        #region 拓展算法
+        private void expansion(List<EMShape> PointList)
+        {
+            List<EMShape> OutList = new List<EMShape>();
+
+            int Count = PointList.Count;
+            TubaoInternalPt tubaoInternalPt = new TubaoInternalPt();
+            List<TubaoInternalPt> InternalPtList = new List<TubaoInternalPt>();
+            for (int i=0;i< PointList.Count;i++)
+            {
+                tubaoInternalPt.InternalPt = PointList[i];
+                InternalPtList.Add(tubaoInternalPt);
+            }
+            //for (int i = 0; i < PointList.Count; i++)//依次将内部点插入原点集中，迭代次数等于内部点个数
+            //{
+            //    //test
+            //    int InsertPt = 0;
+            //    double MinDistanceProportion = 0;
+            //    for(int j=0;j<PointList.Count;j++)
+            //    {
+            //        //根据InsertPlan选择插入点
+            //        double CurDistanceProportion = InsertPlan(PointList[j] = )
+            //    }
+            //    //InternalPtList.RemoveAt(InsertPt);
+            //}
+
+            //初始距离表
+            for (int i = 0; i < InternalPtList.Count; i++)
+            {
+                //计算长度增加比例
+                for (int j = 0; j < OutList.Count - 1; j++)
+                {
+                    double CurDistance = InsertPlan(InternalPtList[i].InternalPt.StartPoint, OutList[j].StartPoint, OutList[j + 1].StartPoint);
+                    if (InternalPtList[i].distance > CurDistance || InternalPtList[i].distance == 0)
+                    {
+                        InternalPtList[i].distance = CurDistance;
+                        InternalPtList[i].TubaoPtIndex = j;
+                    }
+                }
+            }
+
+            //插入点集
+            for (int i = 0; i < InternalPtList.Count; i++)//依次将内部点插入凸包点集中，迭代次数等于内部点个数
+            {
+                //test
+                int InsertPt = 0;
+                double MinDistanceProportion = 0;
+                for (int j = 0; j < InternalPtList.Count; j++)
+                {
+                    if (InternalPtList[j].InsertFlag) continue;
+                    double CurDistanceProportion = InternalPtList[j].distance;
+                    if ((MinDistanceProportion > CurDistanceProportion) || MinDistanceProportion == 0)
+                    {
+                        InsertPt = j;
+                        MinDistanceProportion = CurDistanceProportion;
+                    }
+                }
+                OutList.Insert(InternalPtList[InsertPt].TubaoPtIndex + 1, InternalPtList[InsertPt].InternalPt);
+#if DEBUG
+                //Console.WriteLine("插入{0},{1}", InternalPtList[InsertPt].InternalPt.StartPoint.XPos, InternalPtList[InsertPt].InternalPt.StartPoint.YPos);
+                //for (int a = 0; a < TubaoList.Count; a++) Console.WriteLine("{0},{1}", TubaoList[a].StartPoint.XPos, TubaoList[a].StartPoint.YPos);
+                //Console.WriteLine("------------");
+#endif
+                InternalPtList[InsertPt].InsertFlag = true;
+                if (i == InternalPtList.Count - 1) break;
+                //插入后TubaoList索引改变，MinDistancePt内的值加一,更新路径值
+                for (int k = 0; k < InternalPtList.Count; k++)
+                {
+                    if (InternalPtList[k].TubaoPtIndex > InternalPtList[InsertPt].TubaoPtIndex) InternalPtList[k].TubaoPtIndex++;
+                    if (InternalPtList[k].InsertFlag) continue;
+                    //更新路径值时，插入点前一个点的路径消失，需要重算路径点
+                    if (InternalPtList[InsertPt].TubaoPtIndex == InternalPtList[k].TubaoPtIndex)
+                    {
+                        InternalPtList[k].distance = 0;
+                        for (int j = 0; j < OutList.Count - 1; j++)
+                        {
+                            double CurDistance = InsertPlan(InternalPtList[k].InternalPt.StartPoint, OutList[j].StartPoint, OutList[j + 1].StartPoint);
+                            if (InternalPtList[k].distance > CurDistance || InternalPtList[k].distance == 0)
+                            {
+                                InternalPtList[k].distance = CurDistance;
+                                InternalPtList[k].TubaoPtIndex = j;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        for (int j = InternalPtList[InsertPt].TubaoPtIndex; j < InternalPtList[InsertPt].TubaoPtIndex + 2; j++)
+                        {
+                            double CurDistance = InsertPlan(InternalPtList[k].InternalPt.StartPoint, OutList[j].StartPoint, OutList[j + 1].StartPoint);
+                            if (InternalPtList[k].distance > CurDistance)
+                            {
+                                InternalPtList[k].distance = CurDistance;
+                                InternalPtList[k].TubaoPtIndex = j;
+                            }
+                        }
+                    }
+
+                }
+                //InternalPtList.RemoveAt(InsertPt);
+            }
+
+
+
+
+
+            PointList.Clear();
+            OutList.ForEach(Point => PointList.Add(Point));
+        }
+        #endregion
     }
 }

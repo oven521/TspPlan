@@ -254,7 +254,7 @@ namespace MainHMI {
                 case "改良圈": ChoiceFlag = 0; break;
                 case "贪心": ChoiceFlag = 1; break;
                 case "贪心加改良圈": ChoiceFlag = 2; break;
-                case "双生成树": ChoiceFlag = 3; break;
+                case "最小代价插入": ChoiceFlag = 3; break;
                 case "最小权匹配": ChoiceFlag = 4; break;
                 case "凸包": ChoiceFlag = 5; break;
                 case "动态规划": ChoiceFlag = 6; break;
@@ -272,26 +272,38 @@ namespace MainHMI {
             {
                 if (openFileDialog1.FileName != "")
                 {
-                    refresh_Click(sender, e);//清除原页面线段
-                    _txtFileMananger.ImportTXTFile(openFileDialog1.FileName);
+                    try
+                    {
+                        refresh_Click(sender, e);//清除原页面线段
+                        _txtFileMananger.ImportTXTFile(openFileDialog1.FileName);
+                        xPoint stopPt = new xPoint();
+                        Stopwatch Swatch = new Stopwatch();
+                        Swatch.Start();
+                        TspPlan tspPlan = new TspPlan(stopPt, _txtFileMananger.SpotListXPoint, ChoiceFlag);
+                        Swatch.Stop();
+                        if (TspCombobox.SelectedItem != null)
+                        {
+                            this.rtxtDrawCmd.Text += TspCombobox.SelectedItem.ToString() + " ：总长度" + tspPlan.SumDistance() + "\n";
+                        }
+                        else
+                        {
+                            this.rtxtDrawCmd.Text += "贪心加改良圈" + " ：总长度" + tspPlan.SumDistance() + "\n";
+                        }
+                        this.rtxtDrawCmd.Text += "运行时间" + Swatch.Elapsed.ToString() + "\n";
+                        //生成多线段列表并输出
+                        _txtFileMananger.GeneratePolyLine(_drawModel);
+
+                        this.canvasMain.DrawAndBackupBufferGraphic();
+                        this.canvasMain.Invalidate();
+
+                        _txtFileMananger.Output(_txtFileMananger.SpotListXPoint);
+                    }
+                    catch
+                    {
+                    }
                 }
             }
-            xPoint stopPt = new xPoint();
-            Stopwatch Swatch = new Stopwatch();
-            Swatch.Start();
-            TspPlan tspPlan = new TspPlan(stopPt, _txtFileMananger.SpotListXPoint, ChoiceFlag);
-            Swatch.Stop();
-            this.rtxtDrawCmd.Text += TspCombobox.SelectedItem.ToString()+" ：总长度" + tspPlan.SumDistance() + "\n";
-            this.rtxtDrawCmd.Text += "运行时间" + Swatch.Elapsed.ToString() + "\n";
-            //生成多线段列表并输出
-            //_txtFileMananger.SpotListXPoint = tspPlan.GetPt();
-            _txtFileMananger.GeneratePolyLine(_drawModel);
-            
-            this.canvasMain.DrawAndBackupBufferGraphic();
-            this.canvasMain.Invalidate();
 
-            //Console.WriteLine($"最短路径为 {Plan.SumDistance()}");
-            _txtFileMananger.Output(_txtFileMananger.SpotListXPoint);
         }
 
         private void buttonItem2_Click(object sender, EventArgs e)

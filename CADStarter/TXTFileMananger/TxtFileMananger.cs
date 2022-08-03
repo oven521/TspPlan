@@ -42,7 +42,7 @@ namespace TXTMananger
             }
             catch
             {
-                MessageBox.Show("文件打开失败");
+                MessageBox.Show("文件打开失败,请选择正确文件格式：X Y");
             }
         }
 
