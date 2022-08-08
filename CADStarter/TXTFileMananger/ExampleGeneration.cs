@@ -15,14 +15,13 @@ namespace TXTMananger
     public class ExampleGeneration
     {
 
-        public ExampleGeneration(int count=50)
+        public ExampleGeneration(int count = 100)//点的总个数
         {
             using (StreamWriter stream = new StreamWriter("随机例子.txt"))
             {
                 for (int i = 0; i < count; i++)
                 {
-                    stream.WriteLine(GetRandomSeed()%500 + " " + GetRandomSeed()%500);
-                    
+                    stream.WriteLine(Math.Abs(GetRandomSeed() % 5000) + " " + Math.Abs(GetRandomSeed() % 5000));
                 }
             }
         }

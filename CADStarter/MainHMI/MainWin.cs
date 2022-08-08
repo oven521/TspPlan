@@ -272,18 +272,17 @@ namespace MainHMI {
             {
                 if (openFileDialog1.FileName != "")
                 {
-                    try
-                    {
                         refresh_Click(sender, e);//清除原页面线段
                         _txtFileMananger.ImportTXTFile(openFileDialog1.FileName);
-                        xPoint stopPt = new xPoint();
+
+                    xPoint stopPt = new xPoint();
                         Stopwatch Swatch = new Stopwatch();
                         Swatch.Start();
                         TspPlan tspPlan = new TspPlan(stopPt, _txtFileMananger.SpotListXPoint, ChoiceFlag);
                         Swatch.Stop();
                         if (TspCombobox.SelectedItem != null)
                         {
-                            this.rtxtDrawCmd.Text += TspCombobox.SelectedItem.ToString() + " ：总长度" + tspPlan.SumDistance() + "\n";
+                            this.rtxtDrawCmd.Text += TspCombobox.SelectedItem.ToString() + " ：总长度" + tspPlan.SumDistance() + "    文件名:"+ openFileDialog1.FileName + "\n";
                         }
                         else
                         {
@@ -297,10 +296,6 @@ namespace MainHMI {
                         this.canvasMain.Invalidate();
 
                         _txtFileMananger.Output(_txtFileMananger.SpotListXPoint);
-                    }
-                    catch
-                    {
-                    }
                 }
             }
 

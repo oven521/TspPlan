@@ -46,7 +46,7 @@ namespace MainHMI
             this.改良圈 = new DevComponents.Editors.ComboItem();
             this.凸包 = new DevComponents.Editors.ComboItem();
             this.最小代价插入 = new DevComponents.Editors.ComboItem();
-            this.最小权匹配 = new DevComponents.Editors.ComboItem();
+            this.动态规划 = new DevComponents.Editors.ComboItem();
             this.TspButton = new DevComponents.DotNetBar.ButtonItem();
             this.buttonItem2 = new DevComponents.DotNetBar.ButtonItem();
             this.ribbonBar1 = new DevComponents.DotNetBar.RibbonBar();
@@ -180,7 +180,6 @@ namespace MainHMI
             this.buttonFontUnderline = new DevComponents.DotNetBar.ButtonItem();
             this.buttonItem1 = new DevComponents.DotNetBar.ButtonItem();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.动态规划 = new DevComponents.Editors.ComboItem();
             this.ribbonControl1.SuspendLayout();
             this.ribbonPanel1.SuspendLayout();
             this.ribbonPanel3.SuspendLayout();
@@ -369,7 +368,6 @@ namespace MainHMI
             this.改良圈,
             this.凸包,
             this.最小代价插入,
-            this.最小权匹配,
             this.动态规划});
             this.TspCombobox.Name = "TspCombobox";
             this.TspCombobox.SelectedIndexChanged += new System.EventHandler(this.TspCombobox_ComboBoxTextChanged);
@@ -394,9 +392,9 @@ namespace MainHMI
             // 
             this.最小代价插入.Text = "最小代价插入";
             // 
-            // 最小权匹配
+            // 动态规划
             // 
-            this.最小权匹配.Text = "最小权匹配";
+            this.动态规划.Text = "动态规划";
             // 
             // TspButton
             // 
@@ -410,7 +408,7 @@ namespace MainHMI
             // 
             this.buttonItem2.Name = "buttonItem2";
             this.buttonItem2.SubItemsExpandWidth = 14;
-            this.buttonItem2.Text = "example";
+            this.buttonItem2.Text = "随机生成用例";
             this.buttonItem2.Click += new System.EventHandler(this.buttonItem2_Click);
             // 
             // ribbonBar1
@@ -475,7 +473,7 @@ namespace MainHMI
             this.refresh.FontBold = true;
             this.refresh.Name = "refresh";
             this.refresh.SubItemsExpandWidth = 14;
-            this.refresh.Text = "刷新";
+            this.refresh.Text = "清空";
             this.refresh.Click += new System.EventHandler(this.refresh_Click);
             // 
             // ribbonBar2
@@ -1846,10 +1844,6 @@ namespace MainHMI
             this.buttonItem1.Name = "buttonItem1";
             this.buttonItem1.Text = "选中";
             // 
-            // 动态规划
-            // 
-            this.动态规划.Text = "动态规划";
-            // 
             // MainWin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -2034,7 +2028,6 @@ namespace MainHMI
         private DevComponents.Editors.ComboItem 改良圈;
         private DevComponents.Editors.ComboItem 凸包;
         private DevComponents.Editors.ComboItem 最小代价插入;
-        private DevComponents.Editors.ComboItem 最小权匹配;
         private DevComponents.DotNetBar.ButtonItem TspButton;
         private DevComponents.DotNetBar.ButtonItem buttonItem2;
         private DevComponents.Editors.ComboItem 动态规划;
