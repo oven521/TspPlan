@@ -67,11 +67,14 @@ namespace Tsp
             StartPoint.YPos = a.YPos;
         }
     }
+    //用于插入性方案
     public class InsertPt
     {
-        public EMShape InternalPt;//内部点坐标
-        public int InsertPtIndex;//加入凸包子路径时对应的索引点，即Distance[i][r]+Distance[r][i+1]-Distance[i][i+1]的i点索引
+        public EMShape Point;//该点坐标
         public double MinCost;//加入凸包子路径时找到的最小代价
+        public LinkedListNode<EMShape> PreInsertNode;//预备插入节点
+
+        public int InsertPtIndex;//加入凸包子路径时对应的索引点，即Distance[i][r]+Distance[r][i+1]-Distance[i][i+1]的i点索引
         public bool InsertFlag;//已插入标志，true代表已经插入
     }
 
@@ -81,6 +84,7 @@ namespace Tsp
         //总距离
         private double sumDistance = 0;
 
+        private LinkedList<EMShape> PointLinkedList = new LinkedList<EMShape>();
 
         public TspPlan()
         {
@@ -96,11 +100,25 @@ namespace Tsp
             TspSort(stopPt, emShapelist2, ChoiceFlag, endPt);
             emShapelist1.Clear();
             emShapelist2.ForEach(a => emShapelist1.Add(a.StartPoint));
+
+
         }
 
         internal void TspSort(xPoint stopPt, List<EMShape> emShapelist2, int ChoiceFlag = 2, xPoint endP = null)
         {
             List<EMShape> PointList = emShapelist2;
+            //
+            emShapelist2.ForEach(A =>
+            {
+                PointLinkedList.AddLast(A);
+            });
+
+            LinkedListNode<EMShape> a = PointLinkedList.First;
+            LinkedListNode<EMShape> b = a;
+            Console.WriteLine(b.Value.StartPoint.XPos + "," + b.Value.StartPoint.YPos);
+            PointLinkedList.RemoveFirst();
+            Console.WriteLine(a.Value.StartPoint.XPos + "," + a.Value.StartPoint.YPos);
+            Console.WriteLine(b.Value.StartPoint.XPos + "," + b.Value.StartPoint.YPos);
 
             double min = Distance(stopPt, PointList[0].StartPoint);
             int StartPt = 0;//设置起点
@@ -211,18 +229,18 @@ namespace Tsp
             }
         }
         //颠倒路径中的顺序
-        private void Reverse(int begin, int end, List<EMShape> PointList,double[] OldpathDistance)
+        private void Reverse(int begin, int end, List<EMShape> PointList, double[] OldpathDistance)
         {
             int count;
-            if ((begin + end) %2==1)
+            if ((begin + end) % 2 == 1)
             {
-                count = (begin + end) / 2+1;//偶数个交换点
+                count = (begin + end) / 2 + 1;//偶数个交换点
             }
             else
             {
                 count = (begin + end) / 2;//奇数个交换点
             }
-            
+
             for (int i = begin; i < count; i++)
             {
                 //交换x，y坐标
@@ -254,7 +272,7 @@ namespace Tsp
             {
                 StopFlag = 0;
                 //遍历一轮
-                for (int i = 0; i < PointList.Count- 2; i++)
+                for (int i = 0; i < PointList.Count - 2; i++)
                 {
                     for (int j = i + 2; j < PointList.Count() - 1; j++)
                     {
@@ -270,11 +288,6 @@ namespace Tsp
                             OldpathDistance[i] = Newpathi;
                             OldpathDistance[j] = Newpathj;
                         }
-                        //for (int m = 0; m < PointList.Count; m++)
-                        //{
-                        //    Console.WriteLine(PointList[m].StartPoint.XPos+","+PointList[m].StartPoint.YPos+ "  ");
-
-                        //}
                     }
 
                 }
@@ -285,6 +298,7 @@ namespace Tsp
             }
             //Console.WriteLine(testcircle);
         }
+
         #endregion
         #region 最近邻算法
         /// <summary>
@@ -333,13 +347,14 @@ namespace Tsp
         /*
             插入点代价
             1.根据Distance[i][r]+Distance[r][j]-Distance[i][j] 最小
-            2.根据∠irj 最大
+            2.根据∠irj 最大，角度计算会出现交叉
         */
         private double InsertCost(xPoint Insert, xPoint a, xPoint b)
         {
             return (Distance(Insert, a) + Distance(Insert, b)) - Distance(a, b);
+            //计算向量间夹角cos值
             //double delta = (Insert.XPos - a.XPos) * (Insert.XPos - b.XPos) + (Insert.YPos - a.YPos) * (Insert.YPos - b.YPos);
-            //return delta / (Math.Sqrt(Math.Pow((Insert.XPos - a.XPos), 2) + Math.Pow((Insert.YPos - a.YPos), 2)) + Math.Sqrt(Math.Pow((Insert.XPos - b.XPos), 2) + Math.Pow((Insert.YPos - b.YPos), 2)));
+            //return delta / (Math.Sqrt(Math.Pow((Insert.XPos - a.XPos), 2) + Math.Pow((Insert.YPos - a.YPos), 2)) * Math.Sqrt(Math.Pow((Insert.XPos - b.XPos), 2) + Math.Pow((Insert.YPos - b.YPos), 2)));
         }
         private void ConvexHull(List<EMShape> PointList)
         {
@@ -392,7 +407,7 @@ namespace Tsp
                 {
                     InsertPt ConvexHullInternalPt = new InsertPt();
                     //删除凸包上的点并将其加入内部点集
-                    ConvexHullInternalPt.InternalPt = ConvexHullList[ConvexHullTop];
+                    ConvexHullInternalPt.Point = ConvexHullList[ConvexHullTop];
                     InternalPtList.Add(ConvexHullInternalPt);
                     ConvexHullList.RemoveAt(ConvexHullTop);
 
@@ -404,7 +419,6 @@ namespace Tsp
 
 
         //插入其余点
-        //
         private void ConvexHullInsertion(List<EMShape> ConvexHullList, List<InsertPt> InternalPtList)
         {
             //初始距离表
@@ -413,7 +427,7 @@ namespace Tsp
                 //计算增加的长度
                 for (int j = 0; j < ConvexHullList.Count - 1; j++)
                 {
-                    double CurDistance = InsertCost(InternalPtList[i].InternalPt.StartPoint, ConvexHullList[j].StartPoint, ConvexHullList[j + 1].StartPoint);
+                    double CurDistance = InsertCost(InternalPtList[i].Point.StartPoint, ConvexHullList[j].StartPoint, ConvexHullList[j + 1].StartPoint);
                     if (InternalPtList[i].MinCost > CurDistance || InternalPtList[i].MinCost == 0)
                     {
                         InternalPtList[i].MinCost = CurDistance;
@@ -439,7 +453,7 @@ namespace Tsp
                         MinDistanceProportion = CurDistanceProportion;
                     }
                 }
-                ConvexHullList.Insert(InternalPtList[InsertPtIndex].InsertPtIndex + 1, InternalPtList[InsertPtIndex].InternalPt);
+                ConvexHullList.Insert(InternalPtList[InsertPtIndex].InsertPtIndex + 1, InternalPtList[InsertPtIndex].Point);
 
                 //test
                 //Console.WriteLine("插入{0},{1}", InternalPtList[InsertPtIndex].InternalPt.StartPoint.XPos, InternalPtList[InsertPtIndex].InternalPt.StartPoint.YPos);
@@ -459,7 +473,7 @@ namespace Tsp
                         InternalPtList[k].MinCost = 0;
                         for (int j = 0; j < ConvexHullList.Count - 1; j++)
                         {
-                            double CurDistance = InsertCost(InternalPtList[k].InternalPt.StartPoint, ConvexHullList[j].StartPoint, ConvexHullList[j + 1].StartPoint);
+                            double CurDistance = InsertCost(InternalPtList[k].Point.StartPoint, ConvexHullList[j].StartPoint, ConvexHullList[j + 1].StartPoint);
                             if (InternalPtList[k].MinCost > CurDistance || InternalPtList[k].MinCost == 0)
                             {
                                 InternalPtList[k].MinCost = CurDistance;
@@ -471,7 +485,7 @@ namespace Tsp
                     {
                         for (int j = InternalPtList[InsertPtIndex].InsertPtIndex; j < InternalPtList[InsertPtIndex].InsertPtIndex + 2; j++)
                         {
-                            double CurDistance = InsertCost(InternalPtList[k].InternalPt.StartPoint, ConvexHullList[j].StartPoint, ConvexHullList[j + 1].StartPoint);
+                            double CurDistance = InsertCost(InternalPtList[k].Point.StartPoint, ConvexHullList[j].StartPoint, ConvexHullList[j + 1].StartPoint);
                             if (InternalPtList[k].MinCost > CurDistance)
                             {
                                 InternalPtList[k].MinCost = CurDistance;
@@ -548,7 +562,7 @@ namespace Tsp
             for (int i = 1; i < PointList.Count - 1; i++)
             {
                 InsertPt InternalPt = new InsertPt();
-                InternalPt.InternalPt = PointList[i];
+                InternalPt.Point = PointList[i];
                 InternalPtList.Add(InternalPt);
             }
 
@@ -558,7 +572,7 @@ namespace Tsp
                 //计算插入代价，存储每个点的最小插入代价和对应索引点
                 for (int j = 0; j < OutList.Count - 1; j++)
                 {
-                    double CurDistance = InsertCost(InternalPtList[i].InternalPt.StartPoint, OutList[j].StartPoint, OutList[j + 1].StartPoint);
+                    double CurDistance = InsertCost(InternalPtList[i].Point.StartPoint, OutList[j].StartPoint, OutList[j + 1].StartPoint);
                     if (InternalPtList[i].MinCost > CurDistance || InternalPtList[i].MinCost == 0)
                     {
                         InternalPtList[i].MinCost = CurDistance;
@@ -583,9 +597,10 @@ namespace Tsp
                         MinDistanceProportion = CurDistanceProportion;
                     }
                 }
-                OutList.Insert(InternalPtList[InsertPtIndex].InsertPtIndex + 1, InternalPtList[InsertPtIndex].InternalPt);
+
+                OutList.Insert(InternalPtList[InsertPtIndex].InsertPtIndex + 1, InternalPtList[InsertPtIndex].Point);
                 //test
-                //Console.WriteLine("插入{0},{1}", InternalPtList[InsertPtIndex].InternalPt.StartPoint.XPos, InternalPtList[InsertPtIndex].InternalPt.StartPoint.YPos);
+                //Console.WriteLine("插入{0},{1}", InternalPtList[InsertPtIndex].StartPoint.StartPoint.XPos, InternalPtList[InsertPtIndex].StartPoint.StartPoint.YPos);
                 //for (int a = 0; a < OutList.Count; a++) Console.WriteLine("{0},{1}", OutList[a].StartPoint.XPos, OutList[a].StartPoint.YPos);
                 //Console.WriteLine("------------");
 
@@ -603,7 +618,7 @@ namespace Tsp
                         InternalPtList[k].MinCost = 0;
                         for (int j = 0; j < OutList.Count - 1; j++)
                         {
-                            double CurDistance = InsertCost(InternalPtList[k].InternalPt.StartPoint, OutList[j].StartPoint, OutList[j + 1].StartPoint);
+                            double CurDistance = InsertCost(InternalPtList[k].Point.StartPoint, OutList[j].StartPoint, OutList[j + 1].StartPoint);
                             if (InternalPtList[k].MinCost > CurDistance || InternalPtList[k].MinCost == 0)
                             {
                                 InternalPtList[k].MinCost = CurDistance;
@@ -615,7 +630,7 @@ namespace Tsp
                     {
                         for (int j = InternalPtList[InsertPtIndex].InsertPtIndex; j < InternalPtList[InsertPtIndex].InsertPtIndex + 2; j++)
                         {
-                            double CurDistance = InsertCost(InternalPtList[k].InternalPt.StartPoint, OutList[j].StartPoint, OutList[j + 1].StartPoint);
+                            double CurDistance = InsertCost(InternalPtList[k].Point.StartPoint, OutList[j].StartPoint, OutList[j + 1].StartPoint);
                             if (InternalPtList[k].MinCost > CurDistance)
                             {
                                 InternalPtList[k].MinCost = CurDistance;
@@ -633,5 +648,121 @@ namespace Tsp
         }
         #endregion
 
+        private void LinkExpansion(LinkedList<EMShape> PointLinkedList)
+        {
+            LinkedList<EMShape> OutList = new LinkedList<EMShape>();
+
+            LinkedListNode<EMShape> SecondPointNode;
+            //将起点跟终点存入目标列表
+            OutList.AddLast(PointLinkedList.First);
+            OutList.AddLast(PointLinkedList.Last);
+            PointLinkedList.RemoveFirst();
+            PointLinkedList.RemoveLast();
+
+
+            //将原点集中除了原点和终点以外其他的点存入待插入列表中以及初始距离表
+            LinkedList<InsertPt> InternalPtList = new LinkedList<InsertPt>();
+
+            foreach (EMShape Point in PointLinkedList)
+            {
+                InsertPt InternalPt = new InsertPt();
+                InternalPt.Point = Point;
+
+                SecondPointNode = OutList.First;
+                for (SecondPointNode = OutList.First; SecondPointNode.Next != null; SecondPointNode = SecondPointNode.Next)
+                {
+                    double CurDistance = InsertCost(InternalPt.Point.StartPoint, SecondPointNode.Value.StartPoint, SecondPointNode.Next.Value.StartPoint);
+                    if (InternalPt.MinCost > CurDistance || InternalPt.MinCost == 0)
+                    {
+                        InternalPt.MinCost = CurDistance;
+                        //InternalPt.InsertPtIndex = j;
+                        InternalPt.PreInsertNode = SecondPointNode;
+                    }
+                }
+                InternalPtList.AddLast(InternalPt);
+            }
+
+            //初始距离表
+            //for (int i = 0; i < InternalPtList.Count; i++)
+            //{
+            //    //计算插入代价，存储每个点的最小插入代价和对应索引点
+            //    for (int j = 0; j < OutList.Count - 1; j++)
+            //    {
+            //        double CurDistance = InsertCost(InternalPtList[i].StartPoint.StartPoint, OutList[j].StartPoint, OutList[j + 1].StartPoint);
+            //        if (InternalPtList[i].MinCost > CurDistance || InternalPtList[i].MinCost == 0)
+            //        {
+            //            InternalPtList[i].MinCost = CurDistance;
+            //            InternalPtList[i].InsertPtIndex = j;
+            //        }
+            //    }
+            //}
+            int Count = InternalPtList.Count;
+            LinkedListNode<InsertPt> InsertPointNodeList;
+            LinkedListNode<EMShape> OutListNode;
+            //插入点集
+            for (int i = 0; i < Count; i++)//依次将内部点插入凸包点集中，迭代次数等于内部点个数
+            {
+                //插入代价最小点
+                //int InsertPtIndex = 0;
+                LinkedListNode<InsertPt> InsertNode = InternalPtList.First;
+                double MinCost = 0;
+                for (InsertPointNodeList = InternalPtList.First; InsertPointNodeList.Value != null; InsertPointNodeList = InsertPointNodeList.Next)
+                {
+                    if (InsertPointNodeList.Value.InsertFlag) continue;
+
+                    double CurCost = InsertPointNodeList.Value.MinCost;
+                    if ((MinCost > CurCost) || MinCost == 0)
+                    {
+                        InsertNode = InsertPointNodeList;
+                        MinCost = CurCost;
+                    }
+                }
+
+                OutList.AddAfter(InsertNode.Value.PreInsertNode, InsertNode.Value.Point);
+
+                //test
+                //Console.WriteLine("插入{0},{1}", InternalPtList[InsertPtIndex].StartPoint.StartPoint.XPos, InternalPtList[InsertPtIndex].StartPoint.StartPoint.YPos);
+                //for (int a = 0; a < OutList.Count; a++) Console.WriteLine("{0},{1}", OutList[a].StartPoint.XPos, OutList[a].StartPoint.YPos);
+                //Console.WriteLine("------------");
+
+                //if (i == InternalPtList.Count - 1) break;
+                //插入后InsertPtIndex索引改变,更新路径值
+                for (InsertPointNodeList = InternalPtList.First; InsertPointNodeList.Value != null; InsertPointNodeList = InsertPointNodeList.Next)
+                {
+                    //更新路径值时，如果待插入点原有的索引点的路径消失，需要重算该待插入点最小插入代价和对应索引点
+                    if (InsertNode.Value.PreInsertNode == InsertPointNodeList.Value.PreInsertNode)
+                    {
+                        InsertPointNodeList.Value.MinCost = 0;
+                        //
+                        for (OutListNode = OutList.First;OutListNode.Next!=null;OutListNode=OutListNode.Next)
+                        {
+                            double CurDistance = InsertCost(InsertPointNodeList.Value.Point.StartPoint, OutListNode.Value.StartPoint, OutListNode.Next.Value.StartPoint);
+                            if (InsertPointNodeList.Value.MinCost > CurDistance || InsertPointNodeList.Value.MinCost == 0)
+                            {
+                                InsertPointNodeList.Value.MinCost = CurDistance;
+                                InsertPointNodeList.Value.PreInsertNode = OutListNode;
+                            }
+                        }
+                    }
+                    else//如果待插入点原有的索引点的路径未消失，只需比较新增点对应的两条路径与该待插入点原有的最小插入代价和对应索引点
+                    {
+                        OutListNode = InsertNode.Value.PreInsertNode;
+                        for (int j = 0; j <  2; j++, OutListNode=OutListNode.Next)
+                        {
+                            double CurDistance = InsertCost(InsertPointNodeList.Value.Point.StartPoint, OutListNode.Value.StartPoint, OutListNode.Next.Value.StartPoint);
+                            if (InsertPointNodeList.Value.MinCost > CurDistance)
+                            {
+                                InsertPointNodeList.Value.MinCost = CurDistance;
+                                InsertPointNodeList.Value.PreInsertNode = OutListNode;
+                            }
+                        }
+                    }
+
+                }
+                InternalPtList.Remove(InsertNode.Value);
+            }
+
+            PointLinkedList = OutList;
+        }
     }
 }
